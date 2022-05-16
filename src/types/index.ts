@@ -5,5 +5,7 @@ export interface AdditionalHttpOptions {
 
 export interface HttpOptions extends RequestInit, AdditionalHttpOptions {
   json?: unknown;
-  baseUrl?: string;
+  baseUrl?: string | URL;
 }
+
+export type Input = string | Request | URL;
