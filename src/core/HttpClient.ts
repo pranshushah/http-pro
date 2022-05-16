@@ -1,4 +1,4 @@
-import { AdditionalHttpOptions, HttpOptions } from '../types';
+import { AdditionalHttpOptions, HttpOptions, Input } from '../types';
 import { executeRequest } from '../utils/executeRequest';
 import { getRequestTimeout } from '../utils/getRequestTimeout';
 import { joinUrl } from '../utils/joinUrl';
@@ -15,15 +15,20 @@ export class HttpClient {
     request: Request,
     options?: AdditionalHttpOptions
   ): Promise<Response>;
+  static async get(url: URL, httpOptions?: HttpOptions): Promise<Response>;
   static async get(url: string, httpOptions?: HttpOptions): Promise<Response>;
-  static async get(input: string | Request, httpOptions?: HttpOptions) {
-    if (typeof input === 'string') {
+  static async get(x: Input, httpOptions?: HttpOptions) {
+    if (x instanceof Request) {
+      const requestTimeout = getRequestTimeout(httpOptions);
+      const response = await executeRequest(x, requestTimeout);
+      return validateResponse(httpOptions, response, x);
+    } else if (typeof x === 'string' || x instanceof URL) {
       const headers = new Headers(httpOptions?.headers);
 
       const shallowHttpOptions = { ...httpOptions };
 
       stringifyJson(headers, httpOptions);
-      const joinedUrl = joinUrl(input, httpOptions);
+      const joinedUrl = joinUrl(x, httpOptions);
       const requestTimeout = getRequestTimeout(httpOptions);
 
       const request = new Request(joinedUrl, {
@@ -34,10 +39,6 @@ export class HttpClient {
 
       const response = await executeRequest(request, requestTimeout);
       return validateResponse(shallowHttpOptions, response, request);
-    } else if (input instanceof Request) {
-      const requestTimeout = getRequestTimeout(httpOptions);
-      const response = await executeRequest(input, requestTimeout);
-      return validateResponse(httpOptions, response, input);
     } else {
       throw new TypeError('input can be type string or Request');
     }

@@ -12,6 +12,18 @@ it('should return url string', () => {
   expect(joinedUrl).toBe('/api');
 });
 
+it('should return url back if pass URL object', () => {
+  let joinedUrl = joinUrl(new URL('https://youtube.com'));
+  expect(joinedUrl).toBe('https://youtube.com/');
+});
+
+it('should return url back if pass URL object even if we pass prefix', () => {
+  let joinedUrl = joinUrl(new URL('https://youtube.com'), {
+    baseUrl: 'https://www.google.com',
+  });
+  expect(joinedUrl).toBe('https://youtube.com/');
+});
+
 it('should return url string because baseUrl is not type string', () => {
   // this test is for .js files
   //@ts-ignore

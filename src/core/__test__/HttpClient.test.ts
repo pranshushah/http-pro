@@ -19,6 +19,13 @@ describe('Testing get method with differnet properties', () => {
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
+  it('should work with URL object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    const url = new URL('https://www.x.com');
+    const res = await HttpClient.get(url);
+    expect(await res.json()).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toBeCalledTimes(1);
+  });
   it('should concat baseUrl on relative url', async () => {
     const originalFetch = globalThis.fetch;
     globalThis.fetch = async input => {
@@ -46,6 +53,22 @@ describe('Testing get method with differnet properties', () => {
       return new Response(input.url);
     };
     const res = await HttpClient.get('https://www.x.com', {
+      baseUrl: 'https://www.google.com',
+    });
+    const url = await res.text();
+    expect(url).toBe('https://www.x.com/');
+    globalThis.fetch = originalFetch;
+  });
+  it('should not concat baseUrl on URL object', async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async input => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+
+      return new Response(input.url);
+    };
+    const res = await HttpClient.get(new URL('https://www.x.com'), {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
