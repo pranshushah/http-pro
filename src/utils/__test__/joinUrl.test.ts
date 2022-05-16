@@ -2,8 +2,18 @@ import { HttpOptions } from '../../types';
 import { joinUrl } from '../joinUrl';
 
 it('should prefix the baseUrl', () => {
-  const httpOptions: HttpOptions = { baseUrl: 'https://www.x.com' };
+  let httpOptions: HttpOptions = { baseUrl: 'https://www.x.com' };
   let joinedUrl = joinUrl('/api', httpOptions);
+  expect(joinedUrl).toBe('https://www.x.com/api');
+
+  joinedUrl = joinUrl('api', httpOptions);
+  expect(joinedUrl).toBe('https://www.x.com/api');
+
+  httpOptions = { baseUrl: 'https://www.x.com/' };
+  joinedUrl = joinUrl('/api', httpOptions);
+  expect(joinedUrl).toBe('https://www.x.com/api');
+
+  joinedUrl = joinUrl('api', httpOptions);
   expect(joinedUrl).toBe('https://www.x.com/api');
 });
 
@@ -44,4 +54,10 @@ it('should concat url with baseURL even if we use URL object', () => {
   expect(joinedUrl).toBe('https://www.x.com/api');
   joinedUrl = joinUrl('/api/user?id=3', httpOptions);
   expect(joinedUrl).toBe('https://www.x.com/api/user?id=3');
+});
+
+it('should return url without join if we use URL object in url and baseURL', () => {
+  const httpOptions: HttpOptions = { baseUrl: new URL('https://www.x.com') };
+  let joinedUrl = joinUrl(new URL('https://www.google.com'), httpOptions);
+  expect(joinedUrl).toBe('https://www.google.com/');
 });
