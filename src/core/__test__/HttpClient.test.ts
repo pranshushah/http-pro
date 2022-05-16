@@ -12,6 +12,13 @@ describe('Testing get method with differnet properties', () => {
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
+  it('should work with request object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    const request = new Request('https://www.x.com');
+    const res = await HttpClient.get(request);
+    expect(await res.json()).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toBeCalledTimes(1);
+  });
   it('should concat baseUrl on relative url', async () => {
     const originalFetch = globalThis.fetch;
     globalThis.fetch = async input => {
@@ -83,12 +90,5 @@ describe('Testing get method with differnet properties', () => {
     } catch (error) {
       expect(error instanceof HttpError).toBeFalsy();
     }
-  });
-  it('should work with request object', async () => {
-    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const request = new Request('https://www.x.com');
-    const res = await HttpClient.get(request);
-    expect(await res.json()).toEqual({ name: 'pranshu' });
-    expect(fetchMock).toBeCalledTimes(1);
   });
 });
