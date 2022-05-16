@@ -1,4 +1,4 @@
-import { HttpClient } from './core/http-client';
+import { HttpClient } from './core';
 export * from './Error';
 
 export { HttpClient };
