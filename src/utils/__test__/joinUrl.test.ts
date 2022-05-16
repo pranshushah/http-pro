@@ -37,3 +37,11 @@ it('should return url string because url is absolute path', () => {
   let joinedUrl = joinUrl('https://www.y.com', httpOptions);
   expect(joinedUrl).toBe('https://www.y.com');
 });
+
+it('should concat url with baseURL even if we use URL object', () => {
+  const httpOptions: HttpOptions = { baseUrl: new URL('https://www.x.com') };
+  let joinedUrl = joinUrl('api', httpOptions);
+  expect(joinedUrl).toBe('https://www.x.com/api');
+  joinedUrl = joinUrl('/api/user?id=3', httpOptions);
+  expect(joinedUrl).toBe('https://www.x.com/api/user?id=3');
+});
