@@ -2,12 +2,22 @@ import fetchMock from 'jest-fetch-mock';
 import { HttpError } from '../..';
 import { HttpClient } from '../HttpClient';
 describe('Testing get method with differnet properties', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const response = await HttpClient.get('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+  it('should work with request object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    const request = new Request('https://www.x.com');
+    const res = await HttpClient.get(request);
+    expect(await res.json()).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toBeCalledTimes(1);
   });
   it('should concat baseUrl on relative url', async () => {
     const originalFetch = globalThis.fetch;
@@ -51,6 +61,12 @@ describe('Testing get method with differnet properties', () => {
       await HttpClient.get('https://www.x.com');
     } catch (error) {
       expect(error instanceof HttpError).toBeTruthy();
+      try {
+        const request = new Request('https://www.x.com');
+        await HttpClient.get(request);
+      } catch (error1) {
+        expect(error1 instanceof HttpError).toBeTruthy();
+      }
     }
   });
   it('should not throw HttpError', async () => {
@@ -59,12 +75,18 @@ describe('Testing get method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      const res = await HttpClient.get('https://www.x.com', {
+      let res = await HttpClient.get('https://www.x.com', {
         validateStatus(status) {
           return status < 500;
         },
       });
       expect(res.status).toBe(401);
+      const request = new Request('https://www.x.com');
+      res = await HttpClient.get(request, {
+        validateStatus(status) {
+          return status < 500;
+        },
+      });
     } catch (error) {
       expect(error instanceof HttpError).toBeFalsy();
     }
