@@ -2,7 +2,7 @@ import { HttpError } from '../Error';
 import { HttpOptions } from '../types';
 
 export function validateResponse(
-  httpOptions: HttpOptions,
+  httpOptions: HttpOptions | undefined,
   response: Response,
   request: Request
 ) {
