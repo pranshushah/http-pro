@@ -3,7 +3,7 @@ export class TimeoutError extends Error {
   public timeout: number;
 
   constructor(request: Request, timeout: number) {
-    super(`Request timed out in ${timeout} miliseconds.`);
+    super(`Request timed out in ${timeout} miliseconds`);
     Object.setPrototypeOf(this, new.target.prototype);
     this.name = 'TimeoutError';
     this.request = request;
