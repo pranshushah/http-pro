@@ -115,3 +115,97 @@ describe('Testing get method with differnet properties', () => {
     }
   });
 });
+
+describe('extend the instance', () => {
+  it('should extend the current custom instance', async () => {
+    const customHttpClient = httpClient.create({
+      baseUrl: 'https://www.google.com',
+    });
+    const extendedClient = customHttpClient.extend({
+      baseUrl: 'https://www.x.com',
+    });
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async input => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+
+      return new Response(input.url);
+    };
+    const res = await extendedClient.get('');
+    expect(await res.text()).toBe('https://www.x.com/');
+    const res1 = await customHttpClient.get('');
+    expect(await res1.text()).toBe('https://www.google.com/');
+    globalThis.fetch = originalFetch;
+  });
+  it('should have 3 headers', async () => {
+    const customHttpClient = httpClient.create({
+      baseUrl: 'https://www.google.com',
+      headers: { 'x-name': 'pranshu', 'x-lastname': 'shah' },
+    });
+    const extendedClient = customHttpClient.extend({
+      baseUrl: 'https://www.x.com',
+      headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
+    });
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (input: Request | string) => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+      expect(input.headers.get('x-name')).toBe('mit');
+      expect(input.headers.get('x-age')).toBe('twentyfive');
+      expect(input.headers.get('x-lastname')).toBe('shah');
+
+      return new Response(input.url);
+    };
+    await extendedClient.get('https://www.google.com');
+    globalThis.fetch = originalFetch;
+  });
+  it('should have 2 headers', async () => {
+    const customHttpClient = httpClient.create({
+      baseUrl: 'https://www.google.com',
+      headers: { 'x-name': 'pranshu', 'x-lastname': 'shah' },
+    });
+    customHttpClient.extend({
+      baseUrl: 'https://www.x.com',
+      headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
+    });
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (input: Request | string) => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+      expect(input.headers.get('x-name')).toBe('pranshu');
+      expect(input.headers.get('x-lastname')).toBe('shah');
+
+      return new Response(input.url);
+    };
+    await customHttpClient.get('https://www.google.com');
+    globalThis.fetch = originalFetch;
+  });
+  it('should have 4 headers', async () => {
+    const customHttpClient = httpClient.create({
+      baseUrl: 'https://www.google.com',
+      headers: { 'x-name': 'pranshu', 'x-lastname': 'shah' },
+    });
+    const extendedClient = customHttpClient.extend({
+      baseUrl: 'https://www.x.com',
+      headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
+    });
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (input: Request | string) => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+      expect(input.headers.get('x-name')).toBe('kartik');
+      expect(input.headers.get('x-age')).toBe('twentyfive');
+      expect(input.headers.get('x-lastname')).toBe('shah');
+      expect(input.headers.get('x-father')).toBe('TR');
+      return new Response(input.url);
+    };
+    await extendedClient.get('https://www.google.com', {
+      headers: { 'x-father': 'TR', 'x-name': 'kartik' },
+    });
+    globalThis.fetch = originalFetch;
+  });
+});
