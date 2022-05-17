@@ -43,7 +43,7 @@ export class HttpClient {
       const response = await executeRequest(request, requestTimeout);
       return validateResponse(shallowHttpOptions, response, request);
     } else {
-      throw new TypeError('input can be type string or Request');
+      throw new TypeError('input can be type string or Request or URL object');
     }
   }
 
