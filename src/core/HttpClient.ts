@@ -2,6 +2,7 @@ import { AdditionalHttpOptions, HttpOptions, Input } from '../types';
 import { executeRequest } from '../utils/executeRequest';
 import { getRequestTimeout } from '../utils/getRequestTimeout';
 import { joinUrl } from '../utils/joinUrl';
+import { mergeHeaders, mergeOptions } from '../utils/mergeOptions';
 import { stringifyJson } from '../utils/stringifyJson';
 import { validateResponse } from '../utils/validateResponse';
 
@@ -11,36 +12,50 @@ export class HttpClient {
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
    * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
    */
-  static async get(
+  async get(
     request: Request,
     options?: AdditionalHttpOptions
   ): Promise<Response>;
-  static async get(url: URL, httpOptions?: HttpOptions): Promise<Response>;
-  static async get(url: string, httpOptions?: HttpOptions): Promise<Response>;
-  static async get(x: Input, httpOptions?: HttpOptions) {
+  async get(url: URL, httpOptions?: HttpOptions): Promise<Response>;
+  async get(url: string, httpOptions?: HttpOptions): Promise<Response>;
+  async get(x: Input, httpOptions?: HttpOptions) {
+    let request: Request;
+    let requestTimeout: number | undefined;
+    let options: HttpOptions | undefined;
     if (x instanceof Request) {
-      const requestTimeout = getRequestTimeout(httpOptions);
-      const response = await executeRequest(x, requestTimeout);
-      return validateResponse(httpOptions, response, x);
+      const requestOptions: HttpOptions = {};
+      requestOptions.headers = mergeHeaders(
+        x.headers,
+        this.defaultOptions?.headers
+      );
+      requestOptions.method = 'GET';
+      requestOptions.json = httpOptions?.json;
+      stringifyJson(requestOptions);
+      request = new Request(x, requestOptions);
+      requestTimeout = getRequestTimeout(httpOptions);
+      options = httpOptions;
     } else if (typeof x === 'string' || x instanceof URL) {
-      const headers = new Headers(httpOptions?.headers);
-
-      const shallowHttpOptions = { ...httpOptions };
-
-      stringifyJson(headers, httpOptions);
-      const joinedUrl = joinUrl(x, httpOptions);
-      const requestTimeout = getRequestTimeout(httpOptions);
-
-      const request = new Request(joinedUrl, {
-        ...httpOptions,
-        headers,
+      const mergedHttpOptions = mergeOptions(httpOptions, this.defaultOptions);
+      stringifyJson(mergedHttpOptions);
+      const joinedUrl = joinUrl(x, mergedHttpOptions);
+      options = { ...mergedHttpOptions };
+      requestTimeout = getRequestTimeout(mergedHttpOptions);
+      request = new Request(joinedUrl, {
+        ...mergedHttpOptions,
         method: 'GET',
       });
-
-      const response = await executeRequest(request, requestTimeout);
-      return validateResponse(shallowHttpOptions, response, request);
     } else {
-      throw new TypeError('input can be type string or Request');
+      throw new TypeError('input can be type string or Request or URL object');
     }
+    const response = await executeRequest(request, requestTimeout);
+    return validateResponse(options, response, request);
+  }
+
+  protected defaultOptions: HttpOptions | undefined;
+  constructor(defaultOptions?: HttpOptions) {
+    this.defaultOptions = defaultOptions;
+  }
+  static create(defaultOptions?: HttpOptions) {
+    return new HttpClient(defaultOptions);
   }
 }

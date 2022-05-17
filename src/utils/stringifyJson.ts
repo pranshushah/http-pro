@@ -1,9 +1,11 @@
 import { HttpOptions } from '../types';
 
-export function stringifyJson(headers: Headers, httpOptions?: HttpOptions) {
+export function stringifyJson(httpOptions: HttpOptions) {
   if (httpOptions?.json) {
     httpOptions.body = JSON.stringify(httpOptions.json);
-    headers.set('content-type', 'application/json');
+    //headers always will be Header object
+    //@ts-ignore
+    httpOptions.headers.set('content-type', 'application/json');
     delete httpOptions.json;
   }
 }

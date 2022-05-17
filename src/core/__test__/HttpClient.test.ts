@@ -1,13 +1,13 @@
 import fetchMock from 'jest-fetch-mock';
-import { HttpError } from '../..';
-import { HttpClient } from '../HttpClient';
+import { httpClient } from '../../index';
+import { HttpError } from '../../Error';
 describe('Testing get method with differnet properties', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
   });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const response = await HttpClient.get('https://www.x.com');
+    const response = await httpClient.get('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -15,14 +15,14 @@ describe('Testing get method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await HttpClient.get(request);
+    const res = await httpClient.get(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should work with URL object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const url = new URL('https://www.x.com');
-    const res = await HttpClient.get(url);
+    const res = await httpClient.get(url);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -35,7 +35,7 @@ describe('Testing get method with differnet properties', () => {
 
       return new Response(input.url);
     };
-    const res = await HttpClient.get('/api', {
+    const res = await httpClient.get('/api', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -52,7 +52,7 @@ describe('Testing get method with differnet properties', () => {
 
       return new Response(input.url);
     };
-    const res = await HttpClient.get('https://www.x.com', {
+    const res = await httpClient.get('https://www.x.com', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -68,7 +68,7 @@ describe('Testing get method with differnet properties', () => {
 
       return new Response(input.url);
     };
-    const res = await HttpClient.get(new URL('https://www.x.com'), {
+    const res = await httpClient.get(new URL('https://www.x.com'), {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -81,12 +81,12 @@ describe('Testing get method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      await HttpClient.get('https://www.x.com');
+      await httpClient.get('https://www.x.com');
     } catch (error) {
       expect(error instanceof HttpError).toBeTruthy();
       try {
         const request = new Request('https://www.x.com');
-        await HttpClient.get(request);
+        await httpClient.get(request);
       } catch (error1) {
         expect(error1 instanceof HttpError).toBeTruthy();
       }
@@ -98,14 +98,14 @@ describe('Testing get method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      let res = await HttpClient.get('https://www.x.com', {
+      let res = await httpClient.get('https://www.x.com', {
         validateStatus(status) {
           return status < 500;
         },
       });
       expect(res.status).toBe(401);
       const request = new Request('https://www.x.com');
-      res = await HttpClient.get(request, {
+      res = await httpClient.get(request, {
         validateStatus(status) {
           return status < 500;
         },
