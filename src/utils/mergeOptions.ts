@@ -6,10 +6,9 @@ export function mergeHeaders(
 ) {
   const result = new Headers(baseHeaders);
   const extendedHeadersObject = new Headers(extendedHeaders);
-  //@ts-ignore
-  for (const [key, val] of extendedHeadersObject.entries()) {
-    result.set(key, val);
-  }
+  extendedHeadersObject.forEach((value, key) => {
+    result.set(key, value);
+  });
   return result;
 }
 
