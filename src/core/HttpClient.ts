@@ -19,32 +19,36 @@ export class HttpClient {
   async get(url: URL, httpOptions?: HttpOptions): Promise<Response>;
   async get(url: string, httpOptions?: HttpOptions): Promise<Response>;
   async get(x: Input, httpOptions?: HttpOptions) {
+    let request: Request;
+    let requestTimeout: number | undefined;
+    let options: HttpOptions | undefined;
     if (x instanceof Request) {
-      const options: RequestInit = {};
-      options.headers = mergeHeaders(x.headers, this.defaultOptions?.headers);
-      options.method = 'GET';
-      const request = new Request(x, options);
-      const requestTimeout = getRequestTimeout(httpOptions);
-      const response = await executeRequest(request, requestTimeout);
-      return validateResponse(httpOptions, response, request);
+      const requestOptions: HttpOptions = {};
+      requestOptions.headers = mergeHeaders(
+        x.headers,
+        this.defaultOptions?.headers
+      );
+      requestOptions.method = 'GET';
+      requestOptions.json = httpOptions?.json;
+      stringifyJson(requestOptions);
+      request = new Request(x, requestOptions);
+      requestTimeout = getRequestTimeout(httpOptions);
+      options = httpOptions;
     } else if (typeof x === 'string' || x instanceof URL) {
       const mergedHttpOptions = mergeOptions(httpOptions, this.defaultOptions);
-      const shallowHttpOptions = { ...mergedHttpOptions };
-
       stringifyJson(mergedHttpOptions);
       const joinedUrl = joinUrl(x, mergedHttpOptions);
-      const requestTimeout = getRequestTimeout(mergedHttpOptions);
-
-      const request = new Request(joinedUrl, {
+      options = { ...mergedHttpOptions };
+      requestTimeout = getRequestTimeout(mergedHttpOptions);
+      request = new Request(joinedUrl, {
         ...mergedHttpOptions,
         method: 'GET',
       });
-
-      const response = await executeRequest(request, requestTimeout);
-      return validateResponse(shallowHttpOptions, response, request);
     } else {
       throw new TypeError('input can be type string or Request or URL object');
     }
+    const response = await executeRequest(request, requestTimeout);
+    return validateResponse(options, response, request);
   }
 
   protected defaultOptions: HttpOptions | undefined;
