@@ -12,6 +12,8 @@ export interface HttpOptions extends RequestInit, AdditionalHttpOptions {
 
 export type Input = string | Request | URL;
 
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'HEAD' | 'DELETE';
+
 export interface HttpClientInstance extends HttpClient {
   create: (defaultOptions?: HttpOptions) => HttpClient;
 }
