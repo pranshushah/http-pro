@@ -2,6 +2,7 @@ import { AdditionalHttpOptions, HttpOptions, Input } from '../types';
 import { executeRequest } from '../utils/executeRequest';
 import { getRequestTimeout } from '../utils/getRequestTimeout';
 import { joinUrl } from '../utils/joinUrl';
+import { mergeHeaders, mergeOptions } from '../utils/mergeOptions';
 import { stringifyJson } from '../utils/stringifyJson';
 import { validateResponse } from '../utils/validateResponse';
 
@@ -19,21 +20,23 @@ export class HttpClient {
   async get(url: string, httpOptions?: HttpOptions): Promise<Response>;
   async get(x: Input, httpOptions?: HttpOptions) {
     if (x instanceof Request) {
+      const options: RequestInit = {};
+      options.headers = mergeHeaders(x.headers, this.defaultOptions?.headers);
+      options.method = 'GET';
+      const request = new Request(x, options);
       const requestTimeout = getRequestTimeout(httpOptions);
-      const response = await executeRequest(x, requestTimeout);
-      return validateResponse(httpOptions, response, x);
+      const response = await executeRequest(request, requestTimeout);
+      return validateResponse(httpOptions, response, request);
     } else if (typeof x === 'string' || x instanceof URL) {
-      const headers = new Headers(httpOptions?.headers);
+      const mergedHttpOptions = mergeOptions(httpOptions, this.defaultOptions);
+      const shallowHttpOptions = { ...mergedHttpOptions };
 
-      const shallowHttpOptions = { ...httpOptions };
-
-      stringifyJson(headers, httpOptions);
-      const joinedUrl = joinUrl(x, httpOptions);
-      const requestTimeout = getRequestTimeout(httpOptions);
+      stringifyJson(mergedHttpOptions);
+      const joinedUrl = joinUrl(x, mergedHttpOptions);
+      const requestTimeout = getRequestTimeout(mergedHttpOptions);
 
       const request = new Request(joinedUrl, {
-        ...httpOptions,
-        headers,
+        ...mergedHttpOptions,
         method: 'GET',
       });
 
