@@ -1,5 +1,9 @@
 import { HttpClient } from './core';
+import { HttpClientInstance } from './types';
 export * from './Error';
 
-export { HttpClient };
-export default HttpClient;
+const httpClient = new HttpClient() as HttpClientInstance;
+httpClient.create = HttpClient.create;
+
+export { httpClient };
+export default httpClient;
