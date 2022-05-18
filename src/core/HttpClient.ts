@@ -13,7 +13,7 @@ import { validateResponse } from '../utils/validateResponse';
 
 export class HttpClient {
   /**
-   * @param url url that will be used as request. it can be string Request object or URL object.
+   * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
    * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
    */
@@ -25,6 +25,21 @@ export class HttpClient {
   async get(url: string, httpOptions?: HttpOptions): Promise<Response>;
   async get(x: Input, httpOptions?: HttpOptions) {
     return await this._fetch(x, 'GET', httpOptions);
+  }
+
+  /**
+   * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
+   * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   */
+  async post(
+    request: Request,
+    options?: AdditionalHttpOptions
+  ): Promise<Response>;
+  async post(url: URL, httpOptions?: HttpOptions): Promise<Response>;
+  async post(url: string, httpOptions?: HttpOptions): Promise<Response>;
+  async post(x: Input, httpOptions?: HttpOptions) {
+    return await this._fetch(x, 'POST', httpOptions);
   }
 
   private defaultOptions: HttpOptions | undefined;
