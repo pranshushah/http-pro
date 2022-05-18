@@ -1,4 +1,4 @@
-import { HttpClient } from '../core';
+import { HttpAgent } from '../core';
 
 export interface AdditionalHttpOptions {
   timeout?: number;
@@ -14,6 +14,6 @@ export type Input = string | Request | URL;
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'HEAD' | 'DELETE';
 
-export interface HttpClientInstance extends HttpClient {
-  create: (defaultOptions?: HttpOptions) => HttpClient;
+export interface HttpAgentInstance extends HttpAgent {
+  create: (defaultOptions?: HttpOptions) => HttpAgent;
 }
