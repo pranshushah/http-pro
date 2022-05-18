@@ -69,6 +69,20 @@ export class HttpClient {
   async patch(x: Input, httpOptions?: HttpOptions) {
     return await this._fetch(x, 'PATCH', httpOptions);
   }
+  /**
+   * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
+   * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   */
+  async delete(
+    request: Request,
+    options?: AdditionalHttpOptions
+  ): Promise<Response>;
+  async delete(url: URL, httpOptions?: HttpOptions): Promise<Response>;
+  async delete(url: string, httpOptions?: HttpOptions): Promise<Response>;
+  async delete(x: Input, httpOptions?: HttpOptions) {
+    return await this._fetch(x, 'DELETE', httpOptions);
+  }
 
   private defaultOptions: HttpOptions | undefined;
   constructor(defaultOptions?: HttpOptions) {
