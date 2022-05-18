@@ -1,10 +1,10 @@
-import { HttpClient } from './core';
-import { HttpClientInstance } from './types';
+import { HttpAgent } from './core';
+import { HttpAgentInstance } from './types';
 export * from './types';
 export * from './Error';
 
-const httpClient = new HttpClient() as HttpClientInstance;
-httpClient.create = HttpClient.create;
+const httpAgent = new HttpAgent() as HttpAgentInstance;
+httpAgent.create = HttpAgent.create;
 
-export { httpClient };
-export default httpClient;
+export { httpAgent };
+export default httpAgent;

@@ -1,5 +1,5 @@
 import fetchMock from 'jest-fetch-mock';
-import { httpClient } from '../../index';
+import { httpAgent } from '../../index';
 import { HttpError } from '../../Error';
 describe('Testing get method with differnet properties', () => {
   beforeEach(() => {
@@ -7,7 +7,7 @@ describe('Testing get method with differnet properties', () => {
   });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const response = await httpClient.get('https://www.x.com');
+    const response = await httpAgent.get('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -15,14 +15,14 @@ describe('Testing get method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await httpClient.get(request);
+    const res = await httpAgent.get(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should work with URL object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const url = new URL('https://www.x.com');
-    const res = await httpClient.get(url);
+    const res = await httpAgent.get(url);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -35,7 +35,7 @@ describe('Testing get method with differnet properties', () => {
 
       return new Response(input.url);
     };
-    const res = await httpClient.get('/api', {
+    const res = await httpAgent.get('/api', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -52,7 +52,7 @@ describe('Testing get method with differnet properties', () => {
 
       return new Response(input.url);
     };
-    const res = await httpClient.get('https://www.x.com', {
+    const res = await httpAgent.get('https://www.x.com', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -68,7 +68,7 @@ describe('Testing get method with differnet properties', () => {
 
       return new Response(input.url);
     };
-    const res = await httpClient.get(new URL('https://www.x.com'), {
+    const res = await httpAgent.get(new URL('https://www.x.com'), {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -81,12 +81,12 @@ describe('Testing get method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      await httpClient.get('https://www.x.com');
+      await httpAgent.get('https://www.x.com');
     } catch (error) {
       expect(error instanceof HttpError).toBeTruthy();
       try {
         const request = new Request('https://www.x.com');
-        await httpClient.get(request);
+        await httpAgent.get(request);
       } catch (error1) {
         expect(error1 instanceof HttpError).toBeTruthy();
       }
@@ -98,14 +98,14 @@ describe('Testing get method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      let res = await httpClient.get('https://www.x.com', {
+      let res = await httpAgent.get('https://www.x.com', {
         validateStatus(status) {
           return status < 500;
         },
       });
       expect(res.status).toBe(401);
       const request = new Request('https://www.x.com');
-      res = await httpClient.get(request, {
+      res = await httpAgent.get(request, {
         validateStatus(status) {
           return status < 500;
         },
@@ -122,7 +122,7 @@ describe('Testing post method with differnet properties', () => {
   });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const response = await httpClient.post('https://www.x.com');
+    const response = await httpAgent.post('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -130,14 +130,14 @@ describe('Testing post method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await httpClient.post(request);
+    const res = await httpAgent.post(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should work with URL object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const url = new URL('https://www.x.com');
-    const res = await httpClient.post(url);
+    const res = await httpAgent.post(url);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -150,7 +150,7 @@ describe('Testing post method with differnet properties', () => {
       expect(input.method).toBe('POST');
       return new Response(input.url);
     };
-    const res = await httpClient.post('/api', {
+    const res = await httpAgent.post('/api', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -167,7 +167,7 @@ describe('Testing post method with differnet properties', () => {
       expect(input.method).toBe('POST');
       return new Response(input.url);
     };
-    const res = await httpClient.post('https://www.x.com', {
+    const res = await httpAgent.post('https://www.x.com', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -183,7 +183,7 @@ describe('Testing post method with differnet properties', () => {
       expect(input.method).toBe('POST');
       return new Response(input.url);
     };
-    const res = await httpClient.post(new URL('https://www.x.com'), {
+    const res = await httpAgent.post(new URL('https://www.x.com'), {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -196,12 +196,12 @@ describe('Testing post method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      await httpClient.post('https://www.x.com');
+      await httpAgent.post('https://www.x.com');
     } catch (error) {
       expect(error instanceof HttpError).toBeTruthy();
       try {
         const request = new Request('https://www.x.com');
-        await httpClient.post(request);
+        await httpAgent.post(request);
       } catch (error1) {
         expect(error1 instanceof HttpError).toBeTruthy();
       }
@@ -213,14 +213,14 @@ describe('Testing post method with differnet properties', () => {
       statusText: 'Unauthorized',
     });
     try {
-      let res = await httpClient.post('https://www.x.com', {
+      let res = await httpAgent.post('https://www.x.com', {
         validateStatus(status) {
           return status < 500;
         },
       });
       expect(res.status).toBe(401);
       const request = new Request('https://www.x.com');
-      res = await httpClient.post(request, {
+      res = await httpAgent.post(request, {
         validateStatus(status) {
           return status < 500;
         },
@@ -237,7 +237,7 @@ describe('Testing put method with differnet properties', () => {
   });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const response = await httpClient.put('https://www.x.com');
+    const response = await httpAgent.put('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -245,14 +245,14 @@ describe('Testing put method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await httpClient.put(request);
+    const res = await httpAgent.put(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should work with URL object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const url = new URL('https://www.x.com');
-    const res = await httpClient.put(url);
+    const res = await httpAgent.put(url);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -265,7 +265,7 @@ describe('Testing put method with differnet properties', () => {
       expect(input.method).toBe('PUT');
       return new Response(input.url);
     };
-    const res = await httpClient.put('/api', {
+    const res = await httpAgent.put('/api', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -280,7 +280,7 @@ describe('Testing patch method with differnet properties', () => {
   });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const response = await httpClient.patch('https://www.x.com');
+    const response = await httpAgent.patch('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -288,14 +288,14 @@ describe('Testing patch method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await httpClient.patch(request);
+    const res = await httpAgent.patch(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should work with URL object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const url = new URL('https://www.x.com');
-    const res = await httpClient.patch(url);
+    const res = await httpAgent.patch(url);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -308,7 +308,7 @@ describe('Testing patch method with differnet properties', () => {
       expect(input.method).toBe('PATCH');
       return new Response(input.url);
     };
-    const res = await httpClient.patch('/api', {
+    const res = await httpAgent.patch('/api', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -323,7 +323,7 @@ describe('Testing delete method with differnet properties', () => {
   });
   it('should get basic Response with given-json', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
-    const response = await httpClient.delete('https://www.x.com');
+    const response = await httpAgent.delete('https://www.x.com');
     const data = await response.json();
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
@@ -331,14 +331,14 @@ describe('Testing delete method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await httpClient.delete(request);
+    const res = await httpAgent.delete(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should work with URL object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const url = new URL('https://www.x.com');
-    const res = await httpClient.delete(url);
+    const res = await httpAgent.delete(url);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -351,7 +351,7 @@ describe('Testing delete method with differnet properties', () => {
       expect(input.method).toBe('DELETE');
       return new Response(input.url);
     };
-    const res = await httpClient.delete('/api', {
+    const res = await httpAgent.delete('/api', {
       baseUrl: 'https://www.google.com',
     });
     const url = await res.text();
@@ -362,10 +362,10 @@ describe('Testing delete method with differnet properties', () => {
 
 describe('extend the instance', () => {
   it('should extend the current custom instance', async () => {
-    const customHttpClient = httpClient.create({
+    const customHttpAgent = httpAgent.create({
       baseUrl: 'https://www.google.com',
     });
-    const extendedClient = customHttpClient.extend({
+    const extendedClient = customHttpAgent.extend({
       baseUrl: 'https://www.x.com',
     });
     const originalFetch = globalThis.fetch;
@@ -378,16 +378,16 @@ describe('extend the instance', () => {
     };
     const res = await extendedClient.get('');
     expect(await res.text()).toBe('https://www.x.com/');
-    const res1 = await customHttpClient.get('');
+    const res1 = await customHttpAgent.get('');
     expect(await res1.text()).toBe('https://www.google.com/');
     globalThis.fetch = originalFetch;
   });
   it('should have 3 headers', async () => {
-    const customHttpClient = httpClient.create({
+    const customHttpAgent = httpAgent.create({
       baseUrl: 'https://www.google.com',
       headers: { 'x-name': 'pranshu', 'x-lastname': 'shah' },
     });
-    const extendedClient = customHttpClient.extend({
+    const extendedClient = customHttpAgent.extend({
       baseUrl: 'https://www.x.com',
       headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
     });
@@ -406,11 +406,11 @@ describe('extend the instance', () => {
     globalThis.fetch = originalFetch;
   });
   it('should have 2 headers', async () => {
-    const customHttpClient = httpClient.create({
+    const customHttpAgent = httpAgent.create({
       baseUrl: 'https://www.google.com',
       headers: { 'x-name': 'pranshu', 'x-lastname': 'shah' },
     });
-    customHttpClient.extend({
+    customHttpAgent.extend({
       baseUrl: 'https://www.x.com',
       headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
     });
@@ -424,15 +424,15 @@ describe('extend the instance', () => {
 
       return new Response(input.url);
     };
-    await customHttpClient.get('https://www.google.com');
+    await customHttpAgent.get('https://www.google.com');
     globalThis.fetch = originalFetch;
   });
   it('should have 4 headers', async () => {
-    const customHttpClient = httpClient.create({
+    const customHttpAgent = httpAgent.create({
       baseUrl: 'https://www.google.com',
       headers: { 'x-name': 'pranshu', 'x-lastname': 'shah' },
     });
-    const extendedClient = customHttpClient.extend({
+    const extendedClient = customHttpAgent.extend({
       baseUrl: 'https://www.x.com',
       headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
     });
