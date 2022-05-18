@@ -47,6 +47,10 @@
       "./src/setupJest.ts"
     ]
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pranshushah/http-client"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "tsdx lint"
