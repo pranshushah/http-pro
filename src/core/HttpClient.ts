@@ -34,6 +34,12 @@ export class HttpClient {
   static create(defaultOptions?: HttpOptions) {
     return new HttpClient(defaultOptions);
   }
+
+  extend(extendedOptions: HttpOptions) {
+    const mergedOptions = mergeOptions(extendedOptions, this.defaultOptions);
+    return new HttpClient(mergedOptions);
+  }
+
   private async _fetch(
     input: Input,
     method: HttpMethod,
