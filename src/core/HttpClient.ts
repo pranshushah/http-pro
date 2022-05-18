@@ -41,6 +41,20 @@ export class HttpClient {
   async post(x: Input, httpOptions?: HttpOptions) {
     return await this._fetch(x, 'POST', httpOptions);
   }
+  /**
+   * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
+   * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   */
+  async put(
+    request: Request,
+    options?: AdditionalHttpOptions
+  ): Promise<Response>;
+  async put(url: URL, httpOptions?: HttpOptions): Promise<Response>;
+  async put(url: string, httpOptions?: HttpOptions): Promise<Response>;
+  async put(x: Input, httpOptions?: HttpOptions) {
+    return await this._fetch(x, 'PUT', httpOptions);
+  }
 
   private defaultOptions: HttpOptions | undefined;
   constructor(defaultOptions?: HttpOptions) {
