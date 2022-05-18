@@ -1,11 +1,33 @@
 {
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
+  ],
+  "description": "lightweight fetch based http client for browser",
+  "bugs": {
+    "email": "pranshu.shah23@gmail.com",
+    "url": "https://github.com/pranshushah/http-client/issues"
+  },
+  "keywords": [
+    "fetch",
+    "request",
+    "response",
+    "http",
+    "https",
+    "axios",
+    "ky",
+    "got",
+    "node-fetch",
+    "URL",
+    "network",
+    "rest",
+    "ajax",
+    "xmlhttprequest",
+    "api",
+    "browser"
   ],
   "engines": {
     "node": ">=16"
@@ -37,7 +59,7 @@
     "trailingComma": "es5"
   },
   "name": "http-client",
-  "author": "pranshushah",
+  "author": "pranshu shah",
   "module": "dist/http-client.esm.js",
   "size-limit": [
     {
@@ -56,7 +78,7 @@
     "size-limit": "^7.0.8",
     "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.3.4"
   },
   "dependencies": {}
 }
