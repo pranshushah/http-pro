@@ -130,7 +130,7 @@ describe('Testing post method with differnet properties', () => {
   it('should work with request object', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     const request = new Request('https://www.x.com');
-    const res = await httpClient.get(request);
+    const res = await httpClient.post(request);
     expect(await res.json()).toEqual({ name: 'pranshu' });
     expect(fetchMock).toBeCalledTimes(1);
   });
@@ -228,6 +228,49 @@ describe('Testing post method with differnet properties', () => {
     } catch (error) {
       expect(error instanceof HttpError).toBeFalsy();
     }
+  });
+});
+
+describe('Testing put method with differnet properties', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+  it('should get basic Response with given-json', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    const response = await httpClient.put('https://www.x.com');
+    const data = await response.json();
+    expect(data).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+  it('should work with request object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    const request = new Request('https://www.x.com');
+    const res = await httpClient.put(request);
+    expect(await res.json()).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toBeCalledTimes(1);
+  });
+  it('should work with URL object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    const url = new URL('https://www.x.com');
+    const res = await httpClient.put(url);
+    expect(await res.json()).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toBeCalledTimes(1);
+  });
+  it('should concat baseUrl on relative url', async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (input: Request | string) => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+      expect(input.method).toBe('PUT');
+      return new Response(input.url);
+    };
+    const res = await httpClient.put('/api', {
+      baseUrl: 'https://www.google.com',
+    });
+    const url = await res.text();
+    expect(url).toBe('https://www.google.com/api');
+    globalThis.fetch = originalFetch;
   });
 });
 
