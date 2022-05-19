@@ -88,7 +88,7 @@ export class HttpPro {
   constructor(defaultOptions?: HttpOptions) {
     this.defaultOptions = defaultOptions;
   }
-  static create(defaultOptions?: HttpOptions) {
+  create(defaultOptions?: HttpOptions) {
     return new HttpPro(defaultOptions);
   }
 
