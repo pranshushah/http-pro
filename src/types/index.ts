@@ -1,4 +1,4 @@
-import { HttpAgent } from '../core';
+import { HttpPro } from '../core';
 
 export interface AdditionalHttpOptions {
   timeout?: number;
@@ -14,6 +14,6 @@ export type Input = string | Request | URL;
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'HEAD' | 'DELETE';
 
-export interface HttpAgentInstance extends HttpAgent {
-  create: (defaultOptions?: HttpOptions) => HttpAgent;
+export interface HttpProInstance extends HttpPro {
+  create: (defaultOptions?: HttpOptions) => HttpPro;
 }

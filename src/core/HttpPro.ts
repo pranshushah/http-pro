@@ -11,7 +11,7 @@ import { mergeHeaders, mergeOptions } from '../utils/mergeOptions';
 import { stringifyJson } from '../utils/stringifyJson';
 import { validateResponse } from '../utils/validateResponse';
 
-export class HttpAgent {
+export class HttpPro {
   /**
    * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
@@ -89,12 +89,12 @@ export class HttpAgent {
     this.defaultOptions = defaultOptions;
   }
   static create(defaultOptions?: HttpOptions) {
-    return new HttpAgent(defaultOptions);
+    return new HttpPro(defaultOptions);
   }
 
   extend(extendedOptions: HttpOptions) {
     const mergedOptions = mergeOptions(extendedOptions, this.defaultOptions);
-    return new HttpAgent(mergedOptions);
+    return new HttpPro(mergedOptions);
   }
 
   private async _fetch(

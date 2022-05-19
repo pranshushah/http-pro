@@ -1,10 +1,10 @@
-import { HttpAgent } from './core';
-import { HttpAgentInstance } from './types';
+import { HttpPro } from './core';
+import { HttpProInstance } from './types';
 export * from './types';
 export * from './Error';
 
-const httpAgent = new HttpAgent() as HttpAgentInstance;
-httpAgent.create = HttpAgent.create;
+const hp = new HttpPro() as HttpProInstance;
+hp.create = HttpPro.create;
 
-export { httpAgent };
-export default httpAgent;
+export { hp };
+export default hp;
