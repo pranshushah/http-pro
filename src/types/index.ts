@@ -1,5 +1,3 @@
-import { HttpPro } from '../core';
-
 export interface AdditionalHttpOptions {
   timeout?: number;
   validateStatus?: (status: number) => boolean;
@@ -13,7 +11,3 @@ export interface HttpOptions extends RequestInit, AdditionalHttpOptions {
 export type Input = string | Request | URL;
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'HEAD' | 'DELETE';
-
-export interface HttpProInstance extends HttpPro {
-  create: (defaultOptions?: HttpOptions) => HttpPro;
-}
