@@ -1,4 +1,4 @@
-import { HttpOptions } from '../../types';
+import { HttpOptions, Interceptors } from '../../types';
 import { mergeOptions } from '../mergeOptions';
 
 it('should merge headers and config', () => {
@@ -17,4 +17,29 @@ it('should merge headers and config', () => {
   //@ts-ignore
   expect(mergedOptions.headers.get('x-name')).toBe('mit');
   expect(mergedOptions.method).toBe('POST');
+});
+
+it('should merge interceptors', () => {
+  const interceptors: Interceptors = {
+    beforeRequest(request: Request) {
+      return request;
+    },
+    afterResponse(response: Response) {
+      return response;
+    },
+  };
+  function afterResponse(res: Response) {
+    return res;
+  }
+  const option1: HttpOptions = { interceptors };
+  const option2: HttpOptions = {
+    interceptors: {
+      afterResponse,
+      beforeError() {},
+    },
+  };
+  const mergedOptions = mergeOptions(option2, option1);
+  expect(mergedOptions.interceptors?.afterResponse).toBe(afterResponse);
+  expect(typeof mergedOptions.interceptors?.beforeError).toBe('function');
+  expect(typeof mergedOptions.interceptors?.beforeRequest).toBe('function');
 });

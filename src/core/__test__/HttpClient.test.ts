@@ -453,3 +453,45 @@ describe('extend the instance', () => {
     globalThis.fetch = originalFetch;
   });
 });
+
+describe('should work with interceptors', () => {
+  beforeEach(() => {
+    fetchMock.resetMocks();
+  });
+  it('should work with create object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    async function afterResponse(res: Response) {
+      expect(res instanceof Response).toBe(true);
+      return res;
+    }
+    function beforeRequest(req: Request) {
+      expect(req instanceof Request).toBe(true);
+      expect(req.url).toBe('https://www.x.com/');
+      return req;
+    }
+    const hpInstance = hp.create({
+      interceptors: { afterResponse, beforeRequest },
+    });
+    const response = await hpInstance.get('https://www.x.com');
+    const data = await response.json();
+    expect(data).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+  it('should run error interceptor', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
+      status: 400,
+      statusText: 'bad request',
+    });
+    function beforeError(res: Response) {
+      expect(res.status).toBe(400);
+    }
+    const hpInstance = hp.create({
+      interceptors: { beforeError },
+      validateStatus(status) {
+        return status < 500;
+      },
+    });
+    await hpInstance.get('https://www.x.com');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});

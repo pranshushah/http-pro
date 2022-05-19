@@ -130,6 +130,12 @@ export class HttpPro {
     } else {
       throw new TypeError('input can be type string or Request or URL object');
     }
+    if (typeof options?.interceptors?.beforeRequest === 'function') {
+      const tempRequest = await options.interceptors.beforeRequest(request);
+      if (tempRequest instanceof Request) {
+        request = tempRequest;
+      }
+    }
     const response = await executeRequest(request, requestTimeout);
     return validateResponse(options, response, request);
   }
