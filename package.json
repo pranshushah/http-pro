@@ -9,7 +9,7 @@
   "description": "lightweight fetch based http client for browser",
   "bugs": {
     "email": "pranshu.shah23@gmail.com",
-    "url": "https://github.com/pranshushah/http-agent/issues"
+    "url": "https://github.com/pranshushah/http-pro/issues"
   },
   "keywords": [
     "fetch",
@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pranshushah/http-agent"
+    "url": "https://github.com/pranshushah/http-pro"
   },
   "husky": {
     "hooks": {
@@ -62,16 +62,16 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "http-agent",
+  "name": "http-pro",
   "author": "pranshu shah",
-  "module": "dist/http-agent.esm.js",
+  "module": "dist/http-pro.esm.js",
   "size-limit": [
     {
-      "path": "dist/http-agent.cjs.production.min.js",
+      "path": "dist/http-pro.cjs.production.min.js",
       "limit": "10 KB"
     },
     {
-      "path": "dist/http-agent.esm.js",
+      "path": "dist/http-pro.esm.js",
       "limit": "10 KB"
     }
   ],
