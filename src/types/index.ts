@@ -6,9 +6,12 @@ export interface AdditionalHttpOptions {
 }
 
 export type Interceptors = {
-  beforeRequest?: (request: Request) => Request;
-  beforeError?: (response: Response, request: Request) => void;
-  afterResponse?: (response: Response, request: Request) => Response;
+  beforeRequest?: (request: Request) => Request | Promise<Request>;
+  beforeError?: (response: Response, request: Request) => void | Promise<void>;
+  afterResponse?: (
+    response: Response,
+    request: Request
+  ) => Response | Promise<Response>;
 };
 
 export interface HttpOptions extends RequestInit, AdditionalHttpOptions {

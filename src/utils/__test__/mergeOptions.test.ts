@@ -35,9 +35,7 @@ it('should merge interceptors', () => {
   const option2: HttpOptions = {
     interceptors: {
       afterResponse,
-      beforeError(response: Response) {
-        return response;
-      },
+      beforeError() {},
     },
   };
   const mergedOptions = mergeOptions(option2, option1);

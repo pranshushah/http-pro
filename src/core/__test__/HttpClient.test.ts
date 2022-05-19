@@ -453,3 +453,25 @@ describe('extend the instance', () => {
     globalThis.fetch = originalFetch;
   });
 });
+
+describe('should work with interceptors', () => {
+  it('should work with create object', async () => {
+    fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
+    async function afterResponse(res: Response) {
+      expect(res instanceof Response).toBe(true);
+      return res;
+    }
+    function beforeRequest(req: Request) {
+      expect(req instanceof Request).toBe(true);
+      expect(req.url).toBe('https://www.x.com/');
+      return req;
+    }
+    const hpInstance = hp.create({
+      interceptors: { afterResponse, beforeRequest },
+    });
+    const response = await hpInstance.get('https://www.x.com');
+    const data = await response.json();
+    expect(data).toEqual({ name: 'pranshu' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});

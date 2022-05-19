@@ -1,7 +1,7 @@
 import { HttpError } from '../Error';
 import { HttpOptions } from '../types';
 
-export function validateResponse(
+export async function validateResponse(
   httpOptions: HttpOptions | undefined,
   response: Response,
   request: Request
@@ -9,7 +9,7 @@ export function validateResponse(
   if (typeof httpOptions?.validateStatus === 'function') {
     if (httpOptions.validateStatus(response.status)) {
       if (typeof httpOptions?.interceptors?.afterResponse === 'function') {
-        const tempResponse = httpOptions.interceptors.afterResponse(
+        const tempResponse = await httpOptions.interceptors.afterResponse(
           response,
           request
         );
@@ -20,14 +20,14 @@ export function validateResponse(
       return response;
     } else {
       if (typeof httpOptions?.interceptors?.beforeError === 'function') {
-        httpOptions.interceptors.beforeError(response, request);
+        await httpOptions.interceptors.beforeError(response, request);
       }
       throw new HttpError(response, request);
     }
   } else {
     if (response.ok) {
       if (typeof httpOptions?.interceptors?.afterResponse === 'function') {
-        const tempResponse = httpOptions.interceptors.afterResponse(
+        const tempResponse = await httpOptions.interceptors.afterResponse(
           response,
           request
         );
@@ -38,7 +38,7 @@ export function validateResponse(
       return response;
     } else {
       if (typeof httpOptions?.interceptors?.beforeError === 'function') {
-        httpOptions.interceptors.beforeError(response, request);
+        await httpOptions.interceptors.beforeError(response, request);
       }
       throw new HttpError(response, request);
     }
