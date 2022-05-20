@@ -33,6 +33,9 @@ export function joinUrl(url: string | URL, httpOptions?: HttpOptions): URL {
     }
     joinedUrl = httpOptions.baseUrl + relativeUrl;
   }
+  // i don't know it throws error even if types are correct.
+  // TODO: remove ts-ignore
+  //@ts-ignore
   const urlObj = new URL(joinedUrl);
   const params = new URLSearchParams(
     httpOptions?.searchParams as _BaseSearchParamsInit
