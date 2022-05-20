@@ -1,10 +1,7 @@
 import { HttpOptions, _BaseSearchParamsInit } from '../types';
 const isAbsolutePath = new RegExp('^(?:[a-z]+:)?//', 'i');
 
-export function joinUrl(
-  url: string | URL,
-  httpOptions?: HttpOptions
-): RequestInfo {
+export function joinUrl(url: string | URL, httpOptions?: HttpOptions): URL {
   if (typeof url !== 'string' && url instanceof URL === false) {
     throw new TypeError('url must be string or URL object');
   }
@@ -43,5 +40,5 @@ export function joinUrl(
   params.forEach((value, key) => {
     urlObj.searchParams.append(key, value);
   });
-  return (urlObj as unknown) as RequestInfo;
+  return urlObj;
 }

@@ -123,7 +123,7 @@ export class HttpPro {
       const joinedUrl = joinUrl(input, mergedHttpOptions);
       options = { ...mergedHttpOptions };
       requestTimeout = getRequestTimeout(mergedHttpOptions);
-      request = new Request(joinedUrl, {
+      request = new Request((joinedUrl as unknown) as RequestInfo, {
         ...mergedHttpOptions,
         method,
       });
