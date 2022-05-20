@@ -495,3 +495,35 @@ describe('should work with interceptors', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('checking searchParams', () => {
+  it('should add searchParams ', async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (input: Request | string) => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+      expect(input.url).toBe('https://www.x.com/api?name=pranshu&age=25');
+      return new Response(input.url);
+    };
+    await hp.get('https://www.x.com/api', {
+      searchParams: new URLSearchParams({ name: 'pranshu', age: '25' }),
+    });
+    globalThis.fetch = originalFetch;
+  });
+  it('should add searchParam with baseURL', async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async (input: Request | string) => {
+      if (typeof input !== 'object') {
+        throw new TypeError('Expect to have an object request');
+      }
+      expect(input.url).toBe('https://www.x.com/api?name=pranshu&age=25');
+      return new Response(input.url);
+    };
+    await hp.get('/api', {
+      baseUrl: 'https://www.x.com',
+      searchParams: new URLSearchParams({ name: 'pranshu', age: '25' }),
+    });
+    globalThis.fetch = originalFetch;
+  });
+});

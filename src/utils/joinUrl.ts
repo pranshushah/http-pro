@@ -1,9 +1,11 @@
-import { HttpOptions } from '../types';
+import { HttpOptions, _BaseSearchParamsInit } from '../types';
 const isAbsolutePath = new RegExp('^(?:[a-z]+:)?//', 'i');
 
-export function joinUrl(url: string | URL, httpOptions?: HttpOptions): string {
+export function joinUrl(url: string | URL, httpOptions?: HttpOptions): URL {
+  if (typeof url !== 'string' && url instanceof URL === false) {
+    throw new TypeError('url must be string or URL object');
+  }
   let joinedUrl = url; // default state
-
   if (
     typeof httpOptions?.baseUrl === 'string' &&
     typeof url === 'string' &&
@@ -31,5 +33,15 @@ export function joinUrl(url: string | URL, httpOptions?: HttpOptions): string {
     }
     joinedUrl = httpOptions.baseUrl + relativeUrl;
   }
-  return joinedUrl.toString();
+  // i don't know it throws error even if types are correct.
+  // TODO: remove ts-ignore
+  //@ts-ignore
+  const urlObj = new URL(joinedUrl);
+  const params = new URLSearchParams(
+    httpOptions?.searchParams as _BaseSearchParamsInit
+  );
+  params.forEach((value, key) => {
+    urlObj.searchParams.append(key, value);
+  });
+  return urlObj;
 }
