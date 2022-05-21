@@ -84,16 +84,16 @@ export class HttpPro {
     return await this._fetch(x, 'DELETE', httpOptions);
   }
 
-  private defaultOptions: HttpOptions | undefined;
+  private _defaultOptions: HttpOptions | undefined = { responseType: 'json' };
   constructor(defaultOptions?: HttpOptions) {
-    this.defaultOptions = defaultOptions;
+    this._defaultOptions = mergeOptions(defaultOptions, this._defaultOptions);
   }
   create(defaultOptions?: HttpOptions) {
     return new HttpPro(defaultOptions);
   }
 
   extend(extendedOptions: HttpOptions) {
-    const mergedOptions = mergeOptions(extendedOptions, this.defaultOptions);
+    const mergedOptions = mergeOptions(extendedOptions, this._defaultOptions);
     return new HttpPro(mergedOptions);
   }
 
@@ -109,7 +109,7 @@ export class HttpPro {
       const requestOptions: HttpOptions = {};
       requestOptions.headers = mergeHeaders(
         input.headers,
-        this.defaultOptions?.headers
+        this._defaultOptions?.headers
       );
       requestOptions.method = method;
       requestOptions.json = httpOptions?.json;
@@ -118,7 +118,7 @@ export class HttpPro {
       requestTimeout = getRequestTimeout(httpOptions);
       options = httpOptions;
     } else if (typeof input === 'string' || input instanceof URL) {
-      const mergedHttpOptions = mergeOptions(httpOptions, this.defaultOptions);
+      const mergedHttpOptions = mergeOptions(httpOptions, this._defaultOptions);
       stringifyJson(mergedHttpOptions);
       const joinedUrl = joinUrl(input, mergedHttpOptions);
       options = { ...mergedHttpOptions };
