@@ -5,14 +5,6 @@ export const responseTypes = {
   text: 'text/*',
   formData: 'multipart/form-data',
 } as const;
-export interface AdditionalHttpOptions<ResponseData extends any = any> {
-  timeout?: number;
-  validateStatus?: (status: number) => boolean;
-  json?: unknown;
-  interceptors?: Interceptors;
-  data?: ResponseData;
-  responseType?: keyof typeof responseTypes;
-}
 
 export type _BaseSearchParamsInit =
   | string
@@ -36,10 +28,19 @@ export type Interceptors = {
 };
 
 export interface HttpOptions<ResponseData extends any = any>
-  extends RequestInit,
-    AdditionalHttpOptions<ResponseData> {
+  extends RequestInit {
   baseUrl?: string | URL;
   searchParams?: SearchParamsInit;
+  timeout?: number;
+  validateStatus?: (status: number) => boolean;
+  json?: unknown;
+  interceptors?: Interceptors;
+  data?: ResponseData;
+  responseType?: keyof typeof responseTypes;
+}
+export interface InternalHttpOptions<ResponseData extends any = any>
+  extends HttpOptions<ResponseData> {
+  headers: Headers;
 }
 
 export interface HpResponse<ResponseData extends any> extends Response {
