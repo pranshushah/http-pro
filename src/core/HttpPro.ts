@@ -103,8 +103,16 @@ export class HttpPro {
         request = tempRequest;
       }
     }
-    let response = await executeRequest(request, requestTimeout);
-    response = await addDataInResponse<ResponseData>(response, options);
-    return validateResponse(options, response, request);
+    let originalresponse = await executeRequest(request, requestTimeout);
+    originalresponse = await validateResponse(
+      options,
+      originalresponse,
+      request
+    );
+    const finalResponse = await addDataInResponse<ResponseData>(
+      originalresponse,
+      options
+    );
+    return finalResponse;
   }
 }
