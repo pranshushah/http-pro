@@ -1,10 +1,4 @@
-export interface AdditionalHttpOptions {
-  timeout?: number;
-  validateStatus?: (status: number) => boolean;
-  json?: unknown;
-  interceptors?: Interceptors;
-}
-
+import { responseTypes } from '../utils/constant';
 export type _BaseSearchParamsInit =
   | string
   | [string, string][]
@@ -26,9 +20,21 @@ export type Interceptors = {
   ) => Response | Promise<Response>;
 };
 
-export interface HttpOptions extends RequestInit, AdditionalHttpOptions {
+export interface HttpOptions extends RequestInit {
   baseUrl?: string | URL;
   searchParams?: SearchParamsInit;
+  timeout?: number;
+  validateStatus?: (status: number) => boolean;
+  json?: unknown;
+  interceptors?: Interceptors;
+  responseType?: keyof typeof responseTypes;
+}
+export interface InternalHttpOptions extends HttpOptions {
+  headers: Headers;
+}
+
+export interface HpResponse<ResponseData extends any> extends Response {
+  data: ResponseData;
 }
 
 export type Input = string | Request | URL;

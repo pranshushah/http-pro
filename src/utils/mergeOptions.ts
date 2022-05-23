@@ -1,4 +1,4 @@
-import { HttpOptions, Interceptors } from '../types';
+import { HttpOptions, Interceptors, InternalHttpOptions } from '../types';
 
 export function mergeHeaders(
   extendedHeaders: HeadersInit = {},
@@ -35,8 +35,11 @@ export function mergeOptions(
     extendedOptions.interceptors,
     baseOptions.interceptors
   );
-  const mergedOptions: HttpOptions = { ...baseOptions, ...extendedOptions };
-  mergedOptions.headers = headers;
-  mergedOptions.interceptors = interceptors;
+  const mergedOptions: InternalHttpOptions = {
+    ...baseOptions,
+    ...extendedOptions,
+    headers,
+    interceptors,
+  };
   return mergedOptions;
 }
