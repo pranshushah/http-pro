@@ -72,7 +72,7 @@ export class HttpPro {
     return new HttpPro(defaultOptions);
   }
 
-  extend(extendedOptions: HttpOptions) {
+  extend(extendedOptions?: HttpOptions) {
     const mergedOptions = mergeOptions(extendedOptions, this._defaultOptions);
     return new HttpPro(mergedOptions);
   }
