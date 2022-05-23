@@ -27,19 +27,16 @@ export type Interceptors = {
   ) => Response | Promise<Response>;
 };
 
-export interface HttpOptions<ResponseData extends any = any>
-  extends RequestInit {
+export interface HttpOptions extends RequestInit {
   baseUrl?: string | URL;
   searchParams?: SearchParamsInit;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
   json?: unknown;
   interceptors?: Interceptors;
-  data?: ResponseData;
   responseType?: keyof typeof responseTypes;
 }
-export interface InternalHttpOptions<ResponseData extends any = any>
-  extends HttpOptions<ResponseData> {
+export interface InternalHttpOptions extends HttpOptions {
   headers: Headers;
 }
 

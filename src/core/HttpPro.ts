@@ -80,7 +80,7 @@ export class HttpPro {
   private async _fetch<ResponseData extends any>(
     input: Input,
     method: HttpMethod,
-    httpOptions?: HttpOptions<ResponseData>
+    httpOptions?: HttpOptions
   ) {
     let request: Request;
     const options = mergeOptions(httpOptions, this._defaultOptions);
@@ -102,7 +102,7 @@ export class HttpPro {
         request = tempRequest;
       }
     }
-    const response = await executeRequest(request, requestTimeout);
+    let response = await executeRequest(request, requestTimeout);
     return validateResponse(options, response, request);
   }
 }
