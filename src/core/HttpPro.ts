@@ -1,4 +1,5 @@
 import { HttpMethod, HttpOptions, Input } from '../types';
+import { addDataInResponse } from '../utils/addResponseData';
 import { executeRequest } from '../utils/executeRequest';
 import { getRequestTimeout } from '../utils/getRequestTimeout';
 import { joinUrl } from '../utils/joinUrl';
@@ -103,6 +104,7 @@ export class HttpPro {
       }
     }
     let response = await executeRequest(request, requestTimeout);
+    response = await addDataInResponse<ResponseData>(response, options);
     return validateResponse(options, response, request);
   }
 }
