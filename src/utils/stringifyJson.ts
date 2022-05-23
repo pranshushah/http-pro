@@ -1,11 +1,12 @@
-import { HttpOptions } from '../types';
+import { InternalHttpOptions } from '../types';
+import { responseTypes } from './constant';
 
-export function stringifyJson(httpOptions: HttpOptions) {
+export function stringifyJson(httpOptions: InternalHttpOptions) {
   if (httpOptions?.json) {
     httpOptions.body = JSON.stringify(httpOptions.json);
-    //headers always will be Header object
-    //@ts-ignore
-    httpOptions.headers.set('content-type', 'application/json');
+    if (httpOptions.headers.has('content-type') === false) {
+      httpOptions.headers.set('content-type', responseTypes.json);
+    }
     delete httpOptions.json;
   }
 }

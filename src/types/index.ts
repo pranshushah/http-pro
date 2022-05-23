@@ -1,11 +1,4 @@
-export const responseTypes = {
-  arrayBuffer: '*/*',
-  blob: '*/*',
-  json: 'application/json',
-  text: 'text/*',
-  formData: 'multipart/form-data',
-} as const;
-
+import { responseTypes } from '../utils/constant';
 export type _BaseSearchParamsInit =
   | string
   | [string, string][]
