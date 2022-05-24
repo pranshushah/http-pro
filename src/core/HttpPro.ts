@@ -11,7 +11,7 @@ export class HttpPro {
   /**
    * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
-   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with additional data field that contains responseData.
    */
   async get<ResponseData extends any = {}>(
     x: Input,
@@ -23,7 +23,7 @@ export class HttpPro {
   /**
    * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
-   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with additional data field that contains responseData.
    */
   async post<ResponseData extends any = any>(
     x: Input,
@@ -34,7 +34,7 @@ export class HttpPro {
   /**
    * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
-   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with additional data field that contains responseData.
    */
   async put<ResponseData extends any = any>(
     x: Input,
@@ -45,7 +45,7 @@ export class HttpPro {
   /**
    * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
-   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with additional data field that contains responseData.
    */
   async patch<ResponseData extends any = any>(
     x: Input,
@@ -56,7 +56,7 @@ export class HttpPro {
   /**
    * @param url url that will be used as request. it can be string, [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
    * @param httpOptions same [options](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options) as [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) API but with additional functionality
-   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+   * @returns fetch apis [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with additional data field that contains responseData.
    */
   async delete<ResponseData extends any = any>(
     x: Input,
@@ -103,8 +103,16 @@ export class HttpPro {
         request = tempRequest;
       }
     }
-    let response = await executeRequest(request, requestTimeout);
-    response = await addDataInResponse<ResponseData>(response, options);
-    return validateResponse(options, response, request);
+    let originalresponse = await executeRequest(request, requestTimeout);
+    originalresponse = await validateResponse(
+      options,
+      originalresponse,
+      request
+    );
+    const finalResponse = await addDataInResponse<ResponseData>(
+      originalresponse,
+      options
+    );
+    return finalResponse;
   }
 }
