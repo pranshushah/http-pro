@@ -1,0 +1,73 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import {PlayGround} from '@site/src/components/docs/Playground'
+
+# Getting Started
+
+- Http-pro is lightweight http client built on top of the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+
+## Features
+
+- First-class typescript support.( Better than default typescript support for Fetch API). 
+- Simple syntax( For example, `hp.get(url)` to send get request).
+- timeout.
+- throwing Error when http status code is not between 200 and 299.( also supports custom error handling logic.)
+- create a Instance with default options.
+- Lifecycle methods.
+
+
+## Installation
+
+<Tabs>
+<TabItem value="npm" label="npm">
+
+```bash
+npm install http-pro
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn add http-pro
+```
+
+</TabItem>
+</Tabs>
+
+
+## Simple example
+
+```ts
+
+import hp from 'http-pro';
+
+type ResponseData = {
+  title: string;
+  completed: boolean;
+  id: number;
+  userId: number;
+};
+
+const res = await hp.get<ResponseData>('https://jsonplaceholder.typicode.com/todos/1');
+console.log(res.data); 
+// userId: 1, id: 1, title: "delectus aut autem", completed: false
+
+```
+
+- here `res` is [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with on additional property **data**. by default data will have whatever output we get from [res.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json). if `res.json()` throws an error then data will have empty `{}`. check out http options for more details.
+- For in depth examples visit get in example section.
+
+## live Playground.
+
+- Playground allows you to test http-pro in browser without installing anything.
+- this might be useful for following things.
+1. testing **http-pro**.
+2. reporting bugs.
+
+<PlayGround/>
+
