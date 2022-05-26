@@ -16,10 +16,10 @@
 - You can find detailed example [Here]('').
   <br/><br/>
 
-1. ### `searchParams`
-   - **Type** : `string | object<string, string | number | boolean> | Array<Array<string | number | boolean>> | URLSearchParams | undefined`
-   - it will append all the searchParams to url we passed.
-   - it will accept all the values supported by [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
+1.  ### `searchParams`
+    - **Type** : `string | object<string, string | number | boolean> | Array<Array<string | number | boolean>> | URLSearchParams | undefined`
+    - it will append all the searchParams to url we passed.
+    - it will accept all the values supported by [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
 
 ```ts
 const res = await hp.get('https://www.x.com', {
