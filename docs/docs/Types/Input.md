@@ -1,12 +1,26 @@
-- In each http-pro request **url** is the first parameter. which is the type of `Input`. it can be defined as below.
+- **Type** : `string | URL | Request`
+- when you try to fetch any request with htt-pro, first argument it will acceept is url. url can be one of the following type.
+
+  1.  `string`. it can be absoulte URL or relative URL if you are working with `baseURL`.
+  2.  javascript [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
+  3.  javascript [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+      <br/><br/>
+
+- ### Example
 
 ```ts
-type Input = string | URL | Request;
+const res = await hp.get('https://www.x.com/api/users');
+console.log(res.data); // list of users
 ```
 
-## Explanation
+```ts
+const url = new URL('https://www.x.com/api/users');
+const res = await hp.get(url);
+console.log(res.data); // list of users
+```
 
-- url can be one of the following.
-  1. string.
-  2. javascript [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object.
-  3. javascript [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object itself.
+```ts
+const request = new Request('https://www.x.com/api/users');
+const res = await hp.get(request);
+console.log(res.data); // list of users
+```
