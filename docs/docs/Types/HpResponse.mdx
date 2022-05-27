@@ -1,10 +1,15 @@
-- whenever fetch a request using **http-pro** you will get Response which will following typescript type.
+- whenever you fetch a request using **http-pro** you will get Response which will have following properties.
+
+1. all the properties of javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
+2. ### `data`
+
+- data will have is the response provided by server.<br/><br/>
+  :::note
+  By default http-pro assumes that it will get json data from server. if you want change this behaviour change [responseType](HttpOptions#responsetype) to desired value.
+  :::
 
 ```ts
 export interface HpResponse<ResponseData extends any> extends Response {
   data: ResponseData;
 }
 ```
-
-- In short it says that **http-pro** will return javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object with one additional property.
-- which is named `data` and it contians whatever response data we get from server.
