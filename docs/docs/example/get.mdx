@@ -1,0 +1,17 @@
+---
+sidebar_position: 1
+id: get
+title: GET
+---
+
+import { Json, JsonFetch } from '@site/src/components/docs/get';
+
+## 1. &nbsp JSON data
+
+<Json />
+
+- getting json data is very straight forward. you just have to add url and you will get `json` as javascript object in `res.data` property.
+
+- Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+
+<JsonFetch />
