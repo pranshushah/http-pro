@@ -1,0 +1,19 @@
+---
+sidebar_position: 2
+id: post
+title: POST
+---
+
+import { Json } from '@site/src/components/docs/post';
+
+## 1. JSON data
+
+- If you want to send `json` data to the server, just add your javascript object in [json](../Types/HttpOptions#json) property of `HttpOptions`.
+
+<Json />
+<br />
+<br />
+
+:::note
+whenever users sends the json data to the server using [json](../Types/HttpOptions#json) property of `HttpOptions`, it will set header `content-type : application/json` if headers object does not have `content-type` field.
+:::
