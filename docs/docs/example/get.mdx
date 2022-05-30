@@ -4,7 +4,12 @@ id: get
 title: GET
 ---
 
-import { Json, JsonFetch } from '@site/src/components/docs/get';
+import {
+  Json,
+  JsonFetch,
+  Text,
+  TextExtened,
+} from '@site/src/components/docs/get';
 
 ## 1. &nbsp JSON data
 
@@ -12,6 +17,20 @@ import { Json, JsonFetch } from '@site/src/components/docs/get';
 
 - getting json data is very straight forward. you just have to add url and you will get `json` as javascript object in `res.data` property.
 
-- Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+:::note
+Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+:::
 
 <JsonFetch />
+
+## 2. &nbsp Text data
+
+- getting text data is also very easy with `http-pro`. you just need to set `text` as [responseType](../Types/HttpOptions#responsetype) and in data property of [HpResponse](../Types/HpResponse) object will have `text` data.
+
+<Text />
+
+:::note
+Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+:::
+
+<TextExtened />
