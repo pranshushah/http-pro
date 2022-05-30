@@ -1,6 +1,7 @@
 import { HttpMethod, HttpOptions, Input } from '../types';
 import { addAcceptHeader } from '../utils/AcceptHeaders';
 import { addDataInResponse } from '../utils/addResponseData';
+import { addSearchParams } from '../utils/addSearchParams';
 import { executeRequest } from '../utils/executeRequest';
 import { getRequestTimeout } from '../utils/getRequestTimeout';
 import { joinUrl } from '../utils/joinUrl';
@@ -94,7 +95,8 @@ export class HttpPro {
       request = new Request(input, options);
     } else if (typeof input === 'string' || input instanceof URL) {
       const joinedUrl = joinUrl(input, options);
-      request = new Request((joinedUrl as unknown) as RequestInfo, options);
+      const urlWithParams = addSearchParams(joinedUrl, options);
+      request = new Request((urlWithParams as unknown) as RequestInfo, options);
     } else {
       throw new TypeError('input can be type string or Request or URL object');
     }
