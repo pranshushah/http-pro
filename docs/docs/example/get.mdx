@@ -9,6 +9,7 @@ import {
   JsonFetch,
   Text,
   TextExtened,
+  Blob,
 } from '@site/src/components/docs/get';
 
 ## 1. &nbsp JSON data
@@ -17,20 +18,40 @@ import {
 
 - getting json data is very straight forward. you just have to add url and you will get `json` as javascript object in `res.data` property.
 
+<br />
+
 :::note
 Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
 :::
 
+<br />
 <JsonFetch />
 
 ## 2. &nbsp Text data
 
-- getting text data is also very easy with `http-pro`. you just need to set `text` as [responseType](../Types/HttpOptions#responsetype) and in data property of [HpResponse](../Types/HpResponse) object will have `text` data.
+- To get text data from response you just need to set `text` as [responseType](../Types/HttpOptions#responsetype) and in data property of [HpResponse](../Types/HpResponse) object will have `text` data.
 
 <Text />
+<br />
+<br />
 
 :::note
 Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
 :::
 
+<br />
 <TextExtened />
+
+## 3. Blob data
+
+- To get text data from response you just need to set `text` as [responseType](../Types/HttpOptions#responsetype) and in data property of [HpResponse](../Types/HpResponse) object will have `text` data.
+
+<Blob />
+<br />
+<br />
+
+:::note
+Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+:::
+
+<br />
