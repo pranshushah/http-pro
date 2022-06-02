@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'HTTP-PRO',
   tagline: 'Fetch HTTP requests like pro',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://http-pro.netlify.app/',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
