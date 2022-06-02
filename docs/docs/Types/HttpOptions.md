@@ -13,7 +13,7 @@
      If you pass [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object in url, baseUrl property will be ignored.
      :::
 
-- You can find detailed example [Here]('').
+- You can find detailed example Here.
   <br/><br/>
 
 1.  ### `searchParams`
@@ -42,7 +42,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 5. ### `validateStatus`
 
    - **Type** : `(status: number) => boolean`
-   - `validateStatus` determines whether to throw [HttpError]('') for given status code.
+   - `validateStatus` determines whether to throw HttpError for given status code.
    - You can find detailed examples [Here](HpResponse.mdx).
      <br/><br/>
 
@@ -79,7 +79,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
       Here response won't be [HpResponse](HpResponse.mdx). conversion to `HpResponse` will happen after this step.
       :::
 
-- You can detailed examples [Here]('').
+- You can detailed examples Here.
   <br/><br/>
 
 1.  ### `responseType`
