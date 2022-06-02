@@ -10,7 +10,7 @@
      It can be convenient to set `baseUrl` for an instance of **http-pro** and then pass relative URLs to methods of that instance.
      :::
      :::note
-     If you pass [Request]('https://developer.mozilla.org/en-US/docs/Web/API/Request') or [URL]('https://developer.mozilla.org/en-US/docs/Web/API/URL') object in url, baseUrl property will be ignored.
+     If you pass [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object in url, baseUrl property will be ignored.
      :::
 
 - You can find detailed example [Here]('').
@@ -43,7 +43,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 
    - **Type** : `(status: number) => boolean`
    - `validateStatus` determines whether to throw [HttpError]('') for given status code.
-   - You can find detailed examples [Here]('').
+   - You can find detailed examples [Here](HpResponse.mdx).
      <br/><br/>
 
 6. ### `json`
@@ -76,7 +76,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
       - `beforeError` will run just after we get `Response`. function will receive `Response` and `Request` object as an arguements.
 
       :::note
-      Here response won't be [HpResponse](''). conversion to `HpResponse` will happen after this step.
+      Here response won't be [HpResponse](HpResponse.mdx). conversion to `HpResponse` will happen after this step.
       :::
 
 - You can detailed examples [Here]('').
@@ -86,7 +86,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 
     - **Type** : `'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData' | undefined`
     - **default** : `json`.
-    - `responseType` indicates that what will you from server Response and based on that it will decide what to put in `data` property of [HpResponse]('').<br/><br/>
+    - `responseType` indicates that what will you from server Response and based on that it will decide what to put in `data` property of [HpResponse](HpResponse.mdx).<br/><br/>
 
     :::note
     If Error occurs while parsing the response-data, `data` will have empty object.
