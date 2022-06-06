@@ -7,8 +7,8 @@ export function Json() {
   );
 }
 
-export function JsonFetch() {
+export function JsonResponse() {
   return (
-    <CodesandboxExample baseURL="https://codesandbox.io/embed/gracious-rumple-0rwre7" />
+    <CodesandboxExample baseURL="https://codesandbox.io/embed/suspicious-glitter-9c08ob" />
   );
 }

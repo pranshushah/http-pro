@@ -4,7 +4,7 @@ id: put
 title: PUT
 ---
 
-import { Json } from '@site/src/components/docs/put';
+import { Json, JsonResponse } from '@site/src/components/docs/put';
 
 ## 1. JSON data
 
@@ -17,3 +17,11 @@ import { Json } from '@site/src/components/docs/put';
 :::note
 whenever users sends the json data to the server using [json](../Types/HttpOptions#json) property of `HttpOptions`, it will set `content-type : application/json` header if `headers` object does not have `content-type` field.
 :::
+
+<br />
+
+:::note
+Here, res is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+:::
+
+<JsonResponse />
