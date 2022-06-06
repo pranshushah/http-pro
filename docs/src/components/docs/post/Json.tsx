@@ -7,8 +7,8 @@ export function Json() {
   );
 }
 
-export function FormData() {
+export function JsonResponse() {
   return (
-    <CodesandboxExample baseURL="https://codesandbox.io/embed/http-pro-formdata-p55h12" />
+    <CodesandboxExample baseURL="https://codesandbox.io/embed/http-pro-res-post-29qo72" />
   );
 }
