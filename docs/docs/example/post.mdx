@@ -4,7 +4,7 @@ id: post
 title: POST
 ---
 
-import { Json, FormData } from '@site/src/components/docs/post';
+import { Json, FormData, JsonResponse } from '@site/src/components/docs/post';
 
 ## 1. JSON data
 
@@ -18,8 +18,17 @@ import { Json, FormData } from '@site/src/components/docs/post';
 whenever users sends the json data to the server using [json](../Types/HttpOptions#json) property of `HttpOptions`, it will set `content-type : application/json` header if headers object does not have `content-type` field.
 :::
 
-## 2. FormData
+<br />
+
+:::note
+Here, res is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also access data as shown below.
+:::
 
 <br />
-<br />
+<JsonResponse />
+
+## 2. FormData
+
+- working with [Formdata](https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects) is very straight forward. just paas `FormData` object to [body](https://developer.mozilla.org/en-US/docs/Web/API/Request/body) property.
+
 <FormData />
