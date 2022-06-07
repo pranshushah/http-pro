@@ -3,3 +3,7 @@ sidebar_position: 6
 id: error-handling
 title: Error handling
 ---
+
+- By default **http-pro** throws if [response.status](https://developer.mozilla.org/en-US/docs/Web/API/Response/status) is not between `200` and `299`.
+
+- If you want to customize the default behaviour of error logic based, you can use [validateStatus](../Types/HttpOptions#validatestatus) property of `httpOptions`. it will get `statusCode` as an arguement and it needs to return `boolean`, if function returns `true` it will not throw an Error otherwise it will.
