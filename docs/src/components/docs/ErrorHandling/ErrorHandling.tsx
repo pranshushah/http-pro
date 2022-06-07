@@ -8,6 +8,6 @@ export function DefaultError() {
 
 export function CustomError() {
   return (
-    <CodesandboxExample baseURL="https://codesandbox.io/embed/http-pro-blob-extended-ykjbgr" />
+    <CodesandboxExample baseURL="https://codesandbox.io/embed/http-pro-cutsom-error-1f4t62" />
   );
 }
