@@ -4,6 +4,14 @@ id: error-handling
 title: Error handling
 ---
 
-- By default **http-pro** throws if [response.status](https://developer.mozilla.org/en-US/docs/Web/API/Response/status) is not between `200` and `299`.
+import { DefaultError } from '@site/src/components/docs/ErrorHandling';
+
+- By default **http-pro** throws an error if [response.status](https://developer.mozilla.org/en-US/docs/Web/API/Response/status) is not between `200` and `299`.
+
+<DefaultError />
+
+:::note
+**_http-pro_** throws a custom Error called `HttpError` when `statucCode` is not valid. which is helpful for `instanceof` check as shown above.
+:::
 
 - If you want to customize the default behaviour of error logic based, you can use [validateStatus](../Types/HttpOptions#validatestatus) property of `httpOptions`. it will get `statusCode` as an arguement and it needs to return `boolean`, if function returns `true` it will not throw an Error otherwise it will.
