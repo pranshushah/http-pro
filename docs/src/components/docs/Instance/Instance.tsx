@@ -7,8 +7,8 @@ export function Instance() {
   );
 }
 
-export function ExtendInstance() {
+export function ExtendedInstance() {
   return (
-    <CodesandboxExample baseURL="https://codesandbox.io/embed/http-pro-patch-data-response-h502gk" />
+    <CodesandboxExample baseURL="https://codesandbox.io/embed/http-pro-instance-extend-r37qxl" />
   );
 }

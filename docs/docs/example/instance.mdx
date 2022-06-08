@@ -4,12 +4,22 @@ id: instance
 title: Instance
 ---
 
-import { Instance, ExtendInstance } from '@site/src/components/docs/Instance';
+import { Instance, ExtendedInstance } from '@site/src/components/docs/Instance';
 
 - instance is very handy feature for adding predefined properties in `http-pro` request.
 
 <Instance />
+<br />
+<br />
+
+- Here in `get` request will have both `x-firstname` and `x-lastname` header.
 
 ## Extend Instance
 
 - `hp.extend()` is useful for creating extened version for `http-pro` instance. it will have all the properties of current instance.
+
+<ExtendedInstance />
+<br />
+<br />
+
+- Here in `get` request will have both `x-firstname` and `x-lastname` header and `baseUrl` will be `https://jsonplaceholder.typicode.com`
