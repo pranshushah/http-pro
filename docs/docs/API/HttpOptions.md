@@ -13,7 +13,7 @@
      If you pass [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) or [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) object in url, baseUrl property will be ignored.
      :::
 
-- You can find detailed example Here.
+- You can find detailed example [Here](../example/baseUrl.mdx).
   <br/><br/>
 
 1.  ### `searchParams`
@@ -43,7 +43,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 
    - **Type** : `(status: number) => boolean`
    - `validateStatus` determines whether to throw HttpError for given status code.
-   - You can find detailed examples [Here](HpResponse.mdx).
+   - You can find detailed examples [Here](../example/error-handling#custom-error-handling).
      <br/><br/>
 
 6. ### `json`
@@ -86,7 +86,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 
     - **Type** : `'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData' | undefined`
     - **default** : `json`.
-    - `responseType` indicates that what will you from server Response and based on that it will decide what to put in `data` property of [HpResponse](HpResponse.mdx).<br/><br/>
+    - `responseType` indicates that what will you from server Response and based on that it will decide what to put in `data` property of [HpResponse](HpResponse).<br/><br/>
 
     :::note
     If Error occurs while parsing the response-data, `data` will have empty object.
