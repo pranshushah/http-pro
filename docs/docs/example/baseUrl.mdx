@@ -11,3 +11,15 @@ import { BaseUrl } from '@site/src/components/docs/baseUrl';
 <BaseUrl />
 <br />
 <br />
+
+:::note
+**http-pro** is has no opinion about leading slash in [input URL](../Types/Input) or trailing slash in `baseUrl`, because it will remove slash if [input](../Types/Input) starts with slash, and it will add slash at the end of the baseUrl if there is no slash
+:::
+
+```ts
+hp.get('/api/me', { baseUrl: 'https://wwww.google.com' }); // https://wwww.google.com/api/me
+hp.get('api/me', { baseUrl: 'https://wwww.google.com/' }); // https://wwww.google.com/api/me
+hp.get('/api/me', { baseUrl: 'https://wwww.google.com/' }); // https://wwww.google.com/api/me
+hp.get('api/me', { baseUrl: 'https://wwww.google.com/' }); // https://wwww.google.com/api/me
+hp.get('api/me', { baseUrl: 'https://wwww.google.com' }); // https://wwww.google.com/api/me
+```
