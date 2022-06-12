@@ -1,3 +1,13 @@
+---
+sidebar_position: 2
+id: HttpOptions
+title: HttpOptions
+---
+
+import { HttpOptions } from '@site/src/components/API';
+
+<HttpOptions/>
+
 - second argument of the **http-pro** request is the object that can have following properties.
 
 1. All properties of second parameter of [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Request#properties).
