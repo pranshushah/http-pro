@@ -1,3 +1,13 @@
+---
+sidebar_position: 1
+id: Input
+title: Input
+---
+
+import { Input } from '@site/src/components/API';
+
+<Input/>
+
 - **Type** : `string | URL | Request`
 - when you try to fetch any request with htt-pro, first argument it will acceept is url. url can be one of the following type.
 
