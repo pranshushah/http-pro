@@ -27,8 +27,7 @@ describe('Testing get method with differnet properties', () => {
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should concat baseUrl on relative url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async input => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -37,15 +36,14 @@ describe('Testing get method with differnet properties', () => {
     };
     const res = await hp.get('/api', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.google.com/api');
-    globalThis.fetch = originalFetch;
   });
 
   it('should not concat baseUrl on absoulte url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async input => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -54,14 +52,13 @@ describe('Testing get method with differnet properties', () => {
     };
     const res = await hp.get('https://www.x.com', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.x.com/');
-    globalThis.fetch = originalFetch;
   });
   it('should not concat baseUrl on URL object', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async input => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -70,10 +67,10 @@ describe('Testing get method with differnet properties', () => {
     };
     const res = await hp.get(new URL('https://www.x.com'), {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.x.com/');
-    globalThis.fetch = originalFetch;
   });
   it('should throw HttpError', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
@@ -142,53 +139,50 @@ describe('Testing post method with differnet properties', () => {
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should concat baseUrl on relative url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
-      expect(input.method).toBe('POST');
+
       return new Response(input.url);
     };
     const res = await hp.post('/api', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.google.com/api');
-    globalThis.fetch = originalFetch;
   });
 
   it('should not concat baseUrl on absoulte url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async input => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
-      expect(input.method).toBe('POST');
+
       return new Response(input.url);
     };
     const res = await hp.post('https://www.x.com', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.x.com/');
-    globalThis.fetch = originalFetch;
   });
   it('should not concat baseUrl on URL object', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async input => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
-      expect(input.method).toBe('POST');
+
       return new Response(input.url);
     };
     const res = await hp.post(new URL('https://www.x.com'), {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.x.com/');
-    globalThis.fetch = originalFetch;
   });
   it('should throw HttpError', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
@@ -257,20 +251,19 @@ describe('Testing put method with differnet properties', () => {
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should concat baseUrl on relative url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
-      expect(input.method).toBe('PUT');
+
       return new Response(input.url);
     };
     const res = await hp.put('/api', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.google.com/api');
-    globalThis.fetch = originalFetch;
   });
 });
 
@@ -300,20 +293,19 @@ describe('Testing patch method with differnet properties', () => {
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should concat baseUrl on relative url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
-      expect(input.method).toBe('PATCH');
+
       return new Response(input.url);
     };
     const res = await hp.patch('/api', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.google.com/api');
-    globalThis.fetch = originalFetch;
   });
 });
 
@@ -343,20 +335,19 @@ describe('Testing delete method with differnet properties', () => {
     expect(fetchMock).toBeCalledTimes(1);
   });
   it('should concat baseUrl on relative url', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
-      expect(input.method).toBe('DELETE');
+
       return new Response(input.url);
     };
     const res = await hp.delete('/api', {
       baseUrl: 'https://www.google.com',
+      fetch: customFetch,
     });
     const url = await res.text();
     expect(url).toBe('https://www.google.com/api');
-    globalThis.fetch = originalFetch;
   });
 });
 
@@ -368,19 +359,17 @@ describe('extend the instance', () => {
     const extendedClient = customHp.extend({
       baseUrl: 'https://www.x.com',
     });
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async input => {
+    const customFetch = async (input: RequestInfo) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
 
       return new Response(input.url);
     };
-    const res = await extendedClient.get('');
+    const res = await extendedClient.get('', { fetch: customFetch });
     expect(await res.text()).toBe('https://www.x.com/');
-    const res1 = await customHp.get('');
+    const res1 = await customHp.get('', { fetch: customFetch });
     expect(await res1.text()).toBe('https://www.google.com/');
-    globalThis.fetch = originalFetch;
   });
   it('should have 3 headers', async () => {
     const customHttpAgent = hp.create({
@@ -391,8 +380,7 @@ describe('extend the instance', () => {
       baseUrl: 'https://www.x.com',
       headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
     });
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: Request | string) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -402,8 +390,7 @@ describe('extend the instance', () => {
 
       return new Response(input.url);
     };
-    await extendedClient.get('https://www.google.com');
-    globalThis.fetch = originalFetch;
+    await extendedClient.get('https://www.google.com', { fetch: customFetch });
   });
   it('should have 2 headers', async () => {
     const customHttpAgent = hp.create({
@@ -414,8 +401,7 @@ describe('extend the instance', () => {
       baseUrl: 'https://www.x.com',
       headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
     });
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: Request | string) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -424,8 +410,7 @@ describe('extend the instance', () => {
 
       return new Response(input.url);
     };
-    await customHttpAgent.get('https://www.google.com');
-    globalThis.fetch = originalFetch;
+    await customHttpAgent.get('https://www.google.com', { fetch: customFetch });
   });
   it('should have 4 headers', async () => {
     const customHttpAgent = hp.create({
@@ -436,8 +421,7 @@ describe('extend the instance', () => {
       baseUrl: 'https://www.x.com',
       headers: { 'x-name': 'mit', 'x-age': 'twentyfive' },
     });
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: Request | string) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -449,8 +433,8 @@ describe('extend the instance', () => {
     };
     await extendedClient.get('https://www.google.com', {
       headers: { 'x-father': 'TR', 'x-name': 'kartik' },
+      fetch: customFetch,
     });
-    globalThis.fetch = originalFetch;
   });
 });
 
@@ -498,8 +482,7 @@ describe('should work with interceptors', () => {
 
 describe('checking searchParams', () => {
   it('should add searchParams ', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: Request | string) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -508,12 +491,11 @@ describe('checking searchParams', () => {
     };
     await hp.get('https://www.x.com/api', {
       searchParams: new URLSearchParams({ name: 'pranshu', age: '25' }),
+      fetch: customFetch,
     });
-    globalThis.fetch = originalFetch;
   });
   it('should add searchParam with baseURL', async () => {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async (input: Request | string) => {
+    const customFetch = async (input: Request | string) => {
       if (typeof input !== 'object') {
         throw new TypeError('Expect to have an object request');
       }
@@ -523,7 +505,7 @@ describe('checking searchParams', () => {
     await hp.get('/api', {
       baseUrl: 'https://www.x.com',
       searchParams: new URLSearchParams({ name: 'pranshu', age: '25' }),
+      fetch: customFetch,
     });
-    globalThis.fetch = originalFetch;
   });
 });
