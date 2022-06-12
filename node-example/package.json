@@ -1,0 +1,12 @@
+{
+  "name": "node-example",
+  "version": "1.0.0",
+  "description": "http-pro example in node -v18",
+  "main": "index.js",
+  "type": "module",
+  "author": "pranshushah",
+  "license": "MIT",
+  "dependencies": {
+    "http-pro": "0.2.0"
+  }
+}
