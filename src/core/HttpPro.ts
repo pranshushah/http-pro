@@ -93,7 +93,7 @@ export class HttpPro {
     if (input instanceof globalThis.Request) {
       options.headers = mergeHeaders(input.headers, options.headers);
       request = new globalThis.Request(input, options);
-    } else if (typeof input === 'string' || input instanceof URL) {
+    } else if (typeof input === 'string' || input instanceof globalThis.URL) {
       const joinedUrl = joinUrl(input, options);
       const urlWithParams = addSearchParams(joinedUrl, options);
       request = new globalThis.Request(

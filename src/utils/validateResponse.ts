@@ -13,7 +13,7 @@ export async function validateResponse(
           response,
           request
         );
-        if (tempResponse instanceof Response) {
+        if (tempResponse instanceof globalThis.Response) {
           response = tempResponse;
         }
       }
@@ -31,7 +31,7 @@ export async function validateResponse(
           response,
           request
         );
-        if (tempResponse instanceof Response) {
+        if (tempResponse instanceof globalThis.Response) {
           response = tempResponse;
         }
       }
