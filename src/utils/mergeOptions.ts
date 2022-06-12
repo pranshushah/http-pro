@@ -4,8 +4,8 @@ export function mergeHeaders(
   extendedHeaders: HeadersInit = {},
   baseHeaders: HeadersInit = {}
 ) {
-  const result = new Headers(baseHeaders);
-  const extendedHeadersObject = new Headers(extendedHeaders);
+  const result = new globalThis.Headers(baseHeaders);
+  const extendedHeadersObject = new globalThis.Headers(extendedHeaders);
   extendedHeadersObject.forEach((value, key) => {
     result.set(key, value);
   });
@@ -40,6 +40,11 @@ export function mergeOptions(
     ...extendedOptions,
     headers,
     interceptors,
+    fetch: extendedOptions.fetch
+      ? extendedOptions.fetch
+      : baseOptions.fetch
+      ? baseOptions.fetch
+      : globalThis.fetch,
   };
   return mergedOptions;
 }

@@ -85,29 +85,36 @@ export class HttpPro {
     method: HttpMethod,
     httpOptions?: HttpOptions
   ) {
-    let request: Request;
+    let request: globalThis.Request;
     const options = mergeOptions(httpOptions, this._defaultOptions);
     const requestTimeout: number | undefined = getRequestTimeout(options);
     options.method = method;
     stringifyJson(options);
-    if (input instanceof Request) {
+    if (input instanceof globalThis.Request) {
       options.headers = mergeHeaders(input.headers, options.headers);
-      request = new Request(input, options);
-    } else if (typeof input === 'string' || input instanceof URL) {
+      request = new globalThis.Request(input, options);
+    } else if (typeof input === 'string' || input instanceof globalThis.URL) {
       const joinedUrl = joinUrl(input, options);
       const urlWithParams = addSearchParams(joinedUrl, options);
-      request = new Request((urlWithParams as unknown) as RequestInfo, options);
+      request = new globalThis.Request(
+        (urlWithParams as unknown) as RequestInfo,
+        options
+      );
     } else {
       throw new TypeError('input can be type string or Request or URL object');
     }
     addAcceptHeader(options);
     if (typeof options?.interceptors?.beforeRequest === 'function') {
       const tempRequest = await options.interceptors.beforeRequest(request);
-      if (tempRequest instanceof Request) {
+      if (tempRequest instanceof globalThis.Request) {
         request = tempRequest;
       }
     }
-    let originalresponse = await executeRequest(request, requestTimeout);
+    let originalresponse = await executeRequest(
+      request,
+      options,
+      requestTimeout
+    );
     originalresponse = await validateResponse(
       options,
       originalresponse,
