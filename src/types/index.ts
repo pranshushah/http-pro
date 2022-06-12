@@ -28,10 +28,11 @@ export interface HttpOptions extends RequestInit {
   json?: unknown;
   interceptors?: Interceptors;
   responseType?: keyof typeof responseTypes;
-  fetch?: (input: Input, init?: RequestInit) => Promise<Response>;
+  fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
 export interface InternalHttpOptions extends HttpOptions {
   headers: Headers;
+  fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
 
 export interface HpResponse<ResponseData extends any> extends Response {

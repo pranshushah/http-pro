@@ -40,6 +40,11 @@ export function mergeOptions(
     ...extendedOptions,
     headers,
     interceptors,
+    fetch: extendedOptions.fetch
+      ? extendedOptions.fetch
+      : baseOptions.fetch
+      ? baseOptions.fetch
+      : globalThis.fetch,
   };
   return mergedOptions;
 }

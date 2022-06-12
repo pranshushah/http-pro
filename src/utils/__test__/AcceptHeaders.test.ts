@@ -2,7 +2,10 @@ import { InternalHttpOptions } from '../..';
 import { addAcceptHeader } from '../AcceptHeaders';
 
 it('should add accept headers', () => {
-  const httpOptions: InternalHttpOptions = { headers: new Headers() };
+  const httpOptions: InternalHttpOptions = {
+    headers: new Headers(),
+    fetch: globalThis.fetch,
+  };
   addAcceptHeader(httpOptions);
   expect(httpOptions.headers.has('accept')).toBe(true);
 });
@@ -10,6 +13,7 @@ it('should add accept headers', () => {
 it('should not add accept headers', () => {
   const httpOptions: InternalHttpOptions = {
     headers: new Headers({ accept: 'text/plain' }),
+    fetch: globalThis.fetch,
   };
   addAcceptHeader(httpOptions);
   expect(httpOptions.headers.has('accept')).toBe(true);

@@ -6,6 +6,7 @@ it('should join url with searchParams', () => {
     headers: new Headers(),
     baseUrl: new URL('https://www.x.com'),
     searchParams: { name: 'pranshu', lastname: 'shah', age: 25 },
+    fetch: globalThis.fetch,
   };
   let joinedUrl = joinUrl('api', httpOptions);
   const urlWithParams = addSearchParams(joinedUrl, httpOptions);
@@ -25,6 +26,7 @@ it('should join url with searchParams', () => {
     headers: new Headers(),
     baseUrl: new URL('https://www.x.com'),
     searchParams: { name: 'pranshu', lastname: 'shah', age: 25 },
+    fetch: globalThis.fetch,
   };
   let joinedUrl = joinUrl('https://www.y.com/api', httpOptions);
   const urlWithParams = addSearchParams(joinedUrl, httpOptions);
