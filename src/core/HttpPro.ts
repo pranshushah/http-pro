@@ -8,6 +8,7 @@ import { joinUrl } from '../utils/joinUrl';
 import { mergeHeaders, mergeOptions } from '../utils/mergeOptions';
 import { stringifyJson } from '../utils/stringifyJson';
 import { validateResponse } from '../utils/validateResponse';
+import { validateTimeout } from '../utils/validateTimeout';
 
 export class HttpPro {
   /**
@@ -88,6 +89,11 @@ export class HttpPro {
     let request: globalThis.Request;
     const options = mergeOptions(httpOptions, this._defaultOptions);
     const requestTimeout: number | undefined = getRequestTimeout(options);
+    const abortController = new globalThis.AbortController();
+    options.timeout = validateTimeout(options.timeout);
+    if (options.timeout !== undefined) {
+      options.signal = abortController.signal; // if you provide timeout, default signal provided by user will be ignored.
+    }
     options.method = method;
     stringifyJson(options);
     if (input instanceof globalThis.Request) {
@@ -113,7 +119,7 @@ export class HttpPro {
     let originalresponse = await executeRequest(
       request,
       options,
-      requestTimeout
+      abortController
     );
     originalresponse = await validateResponse(
       options,

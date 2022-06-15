@@ -4,12 +4,12 @@ import { timeout } from '../utils/timeout';
 export async function executeRequest(
   request: globalThis.Request,
   options: InternalHttpOptions,
-  requestTimeout?: number
+  abortController: AbortController
 ) {
-  if (requestTimeout && typeof requestTimeout === 'number') {
+  if (options.timeout && typeof options.timeout === 'number') {
     return await timeout<Response>(
       options.fetch(request),
-      requestTimeout,
+      options.timeout,
       request
     );
   } else {

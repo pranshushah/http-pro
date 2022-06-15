@@ -10,6 +10,8 @@ export async function timeout<T extends unknown>(
   timeout: number,
   request: Request
 ): Promise<T> {
+  const abortController = new globalThis.AbortController();
+
   return (await Promise.race([
     waitForTime(timeout, request),
     fetchRequest,
