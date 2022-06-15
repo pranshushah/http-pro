@@ -7,11 +7,7 @@ export async function executeRequest(
   abortController: AbortController
 ) {
   if (options.timeout && typeof options.timeout === 'number') {
-    return await timeout<Response>(
-      options.fetch(request),
-      options.timeout,
-      request
-    );
+    return await timeout(request, options, abortController, options.timeout);
   } else {
     return await options.fetch(request);
   }
