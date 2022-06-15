@@ -1,17 +1,51 @@
+import { InternalHttpOptions } from '../..';
 import { timeout } from '../timeout';
 
-it('should resolve the promise', () => {
+beforeEach(() => {
+  fetchMock.resetMocks();
+});
+
+it('should resolve the promise', async () => {
+  fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
   jest.useFakeTimers();
   jest.spyOn(global, 'setTimeout');
-  expect(
-    timeout(async_delay(1000, 33), 3000, new Request('https://www.x.com'))
-  ).resolves.toBe(33);
+
+  const abortController = new globalThis.AbortController();
+  const httpOptions: InternalHttpOptions = {
+    fetch: globalThis.fetch,
+    headers: new Headers(),
+  };
+  const res = await timeout(
+    new Request('https://www.x.com', { signal: abortController.signal }),
+    httpOptions,
+    abortController,
+    10000
+  );
+  const data = await res.json();
+
+  expect(data).toEqual({ name: 'pranshu' });
+
   jest.clearAllTimers();
 });
 
 it('should reject the promise', () => {
+  fetchMock.mockResponseOnce(
+    () =>
+      new Promise(resolve => setTimeout(() => resolve({ body: 'ok' }), 1000))
+  );
+
+  const abortController = new globalThis.AbortController();
+  const httpOptions: InternalHttpOptions = {
+    fetch: globalThis.fetch,
+    headers: new Headers(),
+  };
   expect(
-    timeout(async_delay(10000, 45), 1000, new Request('https://www.x.com'))
+    timeout(
+      new Request('https://www.x.com', { signal: abortController.signal }),
+      httpOptions,
+      abortController,
+      100
+    )
   ).rejects.toMatch('error');
 });
 
