@@ -1,7 +1,7 @@
 {
   "version": "0.2.2",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/http-pro.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "tsdx build --format esm --target node",
     "test": "tsdx test",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
@@ -66,10 +66,6 @@
   "author": "pranshu shah",
   "module": "dist/http-pro.esm.js",
   "size-limit": [
-    {
-      "path": "dist/http-pro.cjs.production.min.js",
-      "limit": "10 KB"
-    },
     {
       "path": "dist/http-pro.esm.js",
       "limit": "10 KB"
