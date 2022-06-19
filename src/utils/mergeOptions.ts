@@ -44,7 +44,7 @@ export function mergeOptions(
       ? extendedOptions.fetch
       : baseOptions.fetch
       ? baseOptions.fetch
-      : globalThis.fetch,
+      : globalThis.fetch.bind(globalThis),
   };
   return mergedOptions;
 }
