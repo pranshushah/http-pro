@@ -65,6 +65,7 @@
   "name": "http-pro",
   "author": "pranshu shah",
   "module": "dist/http-pro.esm.js",
+  "type": "module",
   "size-limit": [
     {
       "path": "dist/http-pro.esm.js",
