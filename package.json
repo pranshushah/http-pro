@@ -1,11 +1,13 @@
 {
   "version": "0.3.4",
   "license": "MIT",
-  "main": "dist/http-pro.esm.js",
-  "typings": "dist/index.d.ts",
+  "exports": "./dist/http-pro.esm.js",
+  "main": "./dist/http-pro.esm.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "sideEffects":false,
   "description": "lightweight fetch based http client for browser",
   "bugs": {
     "email": "pranshu.shah23@gmail.com",
@@ -64,7 +66,6 @@
   },
   "name": "http-pro",
   "author": "pranshu shah",
-  "module": "dist/http-pro.esm.js",
   "type": "module",
   "size-limit": [
     {
