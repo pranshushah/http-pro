@@ -1,13 +1,13 @@
 import { HttpMethod, HttpOptions, Input } from '../types';
-import { addAcceptHeader } from '../utils/AcceptHeaders';
-import { addDataInResponse } from '../utils/addResponseData';
-import { addSearchParams } from '../utils/addSearchParams';
-import { executeRequest } from '../utils/executeRequest';
-import { joinUrl } from '../utils/joinUrl';
-import { mergeHeaders, mergeOptions } from '../utils/mergeOptions';
-import { stringifyJson } from '../utils/stringifyJson';
-import { validateResponse } from '../utils/validateResponse';
-import { validateTimeout } from '../utils/validateTimeout';
+import { addAcceptHeader } from '../utils/AcceptHeaders.js';
+import { addDataInResponse } from '../utils/addResponseData.js';
+import { addSearchParams } from '../utils/addSearchParams.js';
+import { executeRequest } from '../utils/executeRequest.js';
+import { joinUrl } from '../utils/joinUrl.js';
+import { mergeHeaders, mergeOptions } from '../utils/mergeOptions.js';
+import { stringifyJson } from '../utils/stringifyJson.js';
+import { validateResponse } from '../utils/validateResponse.js';
+import { validateTimeout } from '../utils/validateTimeout.js';
 
 export class HttpPro {
   /**
@@ -101,7 +101,7 @@ export class HttpPro {
       const joinedUrl = joinUrl(input, options);
       const urlWithParams = addSearchParams(joinedUrl, options);
       request = new globalThis.Request(
-        (urlWithParams as unknown) as RequestInfo,
+        urlWithParams as unknown as RequestInfo,
         options
       );
     } else {
