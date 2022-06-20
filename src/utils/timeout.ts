@@ -1,4 +1,5 @@
-import { InternalHttpOptions, TimeoutError } from '..';
+import { TimeoutError } from '../Error';
+import type { InternalHttpOptions } from '../types';
 
 /**
  * @description if given promises does not resolves in given time it throws error.
@@ -18,7 +19,7 @@ export async function timeout(
     }, timeout);
     options
       .fetch(request)
-      .then(response => {
+      .then((response) => {
         clearTimeout(timeoutId);
         resolve(response);
       })

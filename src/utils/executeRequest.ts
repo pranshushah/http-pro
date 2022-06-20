@@ -1,5 +1,5 @@
 import { InternalHttpOptions } from '../types';
-import { timeout } from '../utils/timeout';
+import { timeout } from './timeout.js';
 
 export async function executeRequest(
   request: globalThis.Request,

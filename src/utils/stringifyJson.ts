@@ -1,5 +1,5 @@
 import type { InternalHttpOptions } from '../types';
-import { responseTypes } from './constant';
+import { responseTypes } from './constant.js';
 
 export function stringifyJson(httpOptions: InternalHttpOptions) {
   if (httpOptions?.json) {

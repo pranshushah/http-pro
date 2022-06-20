@@ -1,5 +1,5 @@
 import type { InternalHttpOptions } from '../types';
-import { responseTypes } from './constant';
+import { responseTypes } from './constant.js';
 
 export function addAcceptHeader(httpOptions: InternalHttpOptions) {
   if (httpOptions.headers.has('accept') === false) {
