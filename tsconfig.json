@@ -2,9 +2,9 @@
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "include": ["src", "types"],
   "compilerOptions": {
-    "module": "esnext",
+    "module": "ES2020",
     "target": "ES2021",
-    "lib": ["dom", "esnext"],
+    "lib": ["dom", "ES2021"],
     "importHelpers": true,
     // output .d.ts declaration files for consumers
     "declaration": true,
@@ -31,6 +31,7 @@
     // error out if import and file system have a casing mismatch. Recommended by TS
     "forceConsistentCasingInFileNames": true,
     // `tsdx build` ignores this option, but it is commonly used when type-checking separately with `tsc`
-    "noEmit": true
+    "noEmit": true,
+    "outDir": "./dist"
   }
 }
