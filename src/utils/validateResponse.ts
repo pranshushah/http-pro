@@ -1,5 +1,5 @@
 import { HttpError } from '../Error/index.js';
-import { HttpOptions } from '../types';
+import { HttpOptions } from '../types/index.js';
 
 export async function validateResponse(
   httpOptions: HttpOptions | undefined,
