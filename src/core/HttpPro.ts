@@ -1,13 +1,16 @@
 import { HttpMethod, HttpOptions, Input } from '../types';
-import { addAcceptHeader } from '../utils/AcceptHeaders.js';
-import { addDataInResponse } from '../utils/addResponseData.js';
-import { addSearchParams } from '../utils/addSearchParams.js';
-import { executeRequest } from '../utils/executeRequest.js';
-import { joinUrl } from '../utils/joinUrl.js';
-import { mergeHeaders, mergeOptions } from '../utils/mergeOptions.js';
-import { stringifyJson } from '../utils/stringifyJson.js';
-import { validateResponse } from '../utils/validateResponse.js';
-import { validateTimeout } from '../utils/validateTimeout.js';
+import {
+  addAcceptHeader,
+  addDataInResponse,
+  executeRequest,
+  addSearchParams,
+  joinUrl,
+  mergeHeaders,
+  mergeOptions,
+  stringifyJson,
+  validateResponse,
+  validateTimeout,
+} from '../utils';
 
 export class HttpPro {
   /**
