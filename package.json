@@ -1,8 +1,7 @@
 {
   "version": "0.3.4",
   "license": "MIT",
-  "exports": "./dist/http-pro.esm.js",
-  "main": "./dist/http-pro.esm.js",
+  "main": "./dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -36,9 +35,9 @@
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "tsdx build --format esm --target node",
+    "build": "tsc",
     "test": "jest",
-    "prepare": "tsdx build --format esm --target node",
+    "prepare": "rm -rf dist && yarn build",
     "size": "size-limit",
     "analyze": "size-limit"
   },
@@ -72,7 +71,7 @@
   "type": "module",
   "size-limit": [
     {
-      "path": "dist/http-pro.esm.js",
+      "path": "dist/index.js",
       "limit": "10 KB"
     }
   ],
