@@ -1,2 +1,2 @@
-export * from './TimeoutError';
-export * from './HttpError';
+export * from './TimeoutError.js';
+export * from './HttpError.js';

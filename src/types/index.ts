@@ -1,4 +1,4 @@
-import { responseTypes } from '../utils/constant';
+import { responseTypes } from '../utils/constant.js';
 export type _BaseSearchParamsInit =
   | string
   | [string, string][]
