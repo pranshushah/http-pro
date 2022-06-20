@@ -7,7 +7,7 @@
   "files": [
     "dist"
   ],
-  "sideEffects":false,
+  "sideEffects": false,
   "description": "lightweight fetch based http client for browser",
   "bugs": {
     "email": "pranshu.shah23@gmail.com",
@@ -37,7 +37,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build --format esm --target node",
-    "test": "tsdx test",
+    "test": "jest",
     "lint": "tsdx lint",
     "prepare": "tsdx build --format esm --target node",
     "size": "size-limit",
@@ -45,8 +45,12 @@
   },
   "peerDependencies": {},
   "jest": {
+    "preset": "ts-jest",
     "setupFiles": [
       "./src/setupJest.ts"
+    ],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/"
     ]
   },
   "repository": {
@@ -78,9 +82,11 @@
     "husky": "^7.0.4",
     "jest-fetch-mock": "^3.0.3",
     "size-limit": "^7.0.8",
-    "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "@types/jest": "^26.0.14",
+    "jest": "^26.5.2",
+    "ts-jest": "^26.4.1"
   },
   "dependencies": {}
 }
