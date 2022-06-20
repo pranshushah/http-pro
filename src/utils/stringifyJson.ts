@@ -1,4 +1,4 @@
-import { InternalHttpOptions } from '../types';
+import type { InternalHttpOptions } from '../types';
 import { responseTypes } from './constant';
 
 export function stringifyJson(httpOptions: InternalHttpOptions) {

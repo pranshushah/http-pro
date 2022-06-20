@@ -1,5 +1,5 @@
 import { joinUrl } from '../joinUrl';
-import { InternalHttpOptions } from '../../types';
+import type { InternalHttpOptions } from '../../types';
 import { addSearchParams } from '../addSearchParams';
 it('should join url with searchParams', () => {
   const httpOptions: InternalHttpOptions = {

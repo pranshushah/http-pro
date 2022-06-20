@@ -1,4 +1,4 @@
-import { HttpMethod, HttpOptions, Input } from '../types';
+import type { HttpMethod, HttpOptions, Input } from '../types';
 import {
   addAcceptHeader,
   addDataInResponse,

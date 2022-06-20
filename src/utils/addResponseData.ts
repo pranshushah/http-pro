@@ -1,4 +1,4 @@
-import { HpResponse, InternalHttpOptions } from '../types';
+import type { HpResponse, InternalHttpOptions } from '../types';
 
 export async function addDataInResponse<ResponseType = any>(
   response: Response,
@@ -9,9 +9,9 @@ export async function addDataInResponse<ResponseType = any>(
   finalResponse.data = {} as ResponseType;
   try {
     if (options.responseType) {
-      finalResponse.data = ((await response[
+      finalResponse.data = (await response[
         options.responseType
-      ]()) as unknown) as ResponseType;
+      ]()) as unknown as ResponseType;
     } else {
       finalResponse.data = await response.json();
     }

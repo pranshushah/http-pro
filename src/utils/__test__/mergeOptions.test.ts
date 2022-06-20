@@ -1,4 +1,4 @@
-import { HttpOptions, Interceptors } from '../../types';
+import type { HttpOptions, Interceptors } from '../../types';
 import { mergeOptions } from '../mergeOptions';
 
 it('should merge headers and config', () => {

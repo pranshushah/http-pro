@@ -1,4 +1,4 @@
-import { HttpOptions } from '../../types';
+import type { HttpOptions } from '../../types';
 import { joinUrl } from '../joinUrl';
 
 it('should prefix the baseUrl', () => {

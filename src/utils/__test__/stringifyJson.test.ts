@@ -1,4 +1,4 @@
-import { InternalHttpOptions } from '../../types';
+import type { InternalHttpOptions } from '../../types';
 import { stringifyJson } from '../stringifyJson';
 
 it('should add the stringify version of the json object in body', () => {
