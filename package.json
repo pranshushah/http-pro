@@ -34,7 +34,6 @@
     "node": ">=16"
   },
   "scripts": {
-    "start": "tsdx watch",
     "build": "tsc",
     "test": "jest",
     "prepare": "rm -rf dist && yarn build",
@@ -55,11 +54,6 @@
     "type": "git",
     "url": "https://github.com/pranshushah/http-pro"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -77,7 +71,6 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
-    "husky": "^7.0.4",
     "jest-fetch-mock": "^3.0.3",
     "size-limit": "^7.0.8",
     "tslib": "^2.4.0",
