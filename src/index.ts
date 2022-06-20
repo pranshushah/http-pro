@@ -1,6 +1,13 @@
-import { HttpPro } from './core';
-export * from './types';
-export * from './Error';
+import { HttpPro } from './core/index.js';
+export type {
+  HpResponse,
+  HttpMethod,
+  HttpOptions,
+  Input,
+  Interceptors,
+  SearchParamsInit,
+} from './types/index.js';
+export * from './Error/index.js';
 
 const hp = new HttpPro();
 export { hp };
