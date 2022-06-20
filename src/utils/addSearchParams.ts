@@ -1,4 +1,7 @@
-import type { InternalHttpOptions, _BaseSearchParamsInit } from '../types';
+import type {
+  InternalHttpOptions,
+  _BaseSearchParamsInit,
+} from '../types/index.js';
 
 export function addSearchParams(
   url: string | globalThis.URL,

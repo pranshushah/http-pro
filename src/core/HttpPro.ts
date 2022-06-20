@@ -1,4 +1,4 @@
-import type { HttpMethod, HttpOptions, Input } from '../types';
+import type { HttpMethod, HttpOptions, Input } from '../types/index.js';
 import {
   addAcceptHeader,
   addDataInResponse,
@@ -10,7 +10,7 @@ import {
   stringifyJson,
   validateResponse,
   validateTimeout,
-} from '../utils';
+} from '../utils/index.js';
 
 export class HttpPro {
   /**

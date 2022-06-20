@@ -1,4 +1,8 @@
-import type { HttpOptions, Interceptors, InternalHttpOptions } from '../types';
+import type {
+  HttpOptions,
+  Interceptors,
+  InternalHttpOptions,
+} from '../types/index.js';
 
 export function mergeHeaders(
   extendedHeaders: HeadersInit = {},

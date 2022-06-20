@@ -1,5 +1,5 @@
-import { TimeoutError } from '../Error';
-import type { InternalHttpOptions } from '../types';
+import { TimeoutError } from '../Error/index.js';
+import type { InternalHttpOptions } from '../types/index.js';
 
 /**
  * @description if given promises does not resolves in given time it throws error.

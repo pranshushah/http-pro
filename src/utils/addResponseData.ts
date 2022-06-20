@@ -1,4 +1,4 @@
-import type { HpResponse, InternalHttpOptions } from '../types';
+import type { HpResponse, InternalHttpOptions } from '../types/index.js';
 
 export async function addDataInResponse<ResponseType = any>(
   response: Response,

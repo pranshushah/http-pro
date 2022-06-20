@@ -1,4 +1,4 @@
-import { InternalHttpOptions } from '../types';
+import { InternalHttpOptions } from '../types/index.js';
 import { timeout } from './timeout.js';
 
 export async function executeRequest(

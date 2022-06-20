@@ -1,4 +1,4 @@
-import type { HttpOptions, _BaseSearchParamsInit } from '../types';
+import type { HttpOptions, _BaseSearchParamsInit } from '../types/index.js';
 const isAbsolutePath = new RegExp('^(?:[a-z]+:)?//', 'i');
 
 export function joinUrl(
