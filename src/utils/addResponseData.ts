@@ -6,18 +6,25 @@ export async function addDataInResponse<ResponseType = any>(
 ) {
   //@ts-ignore
   let finalResponse: HpResponse<ResponseType> = response.clone();
-  finalResponse.data = {} as ResponseType;
   try {
+    let data: ResponseType;
     if (options.responseType) {
-      finalResponse.data = ((await response[
+      data = ((await response[
         options.responseType
       ]()) as unknown) as ResponseType;
     } else {
-      finalResponse.data = await response.json();
+      data = await response.json();
     }
+    Object.defineProperty(finalResponse, 'data', {
+      value: data,
+      writable: false,
+    });
   } catch (e) {
     // if something goes wrong while parsing data we return empty object.
-    finalResponse.data = {} as ResponseType;
+    Object.defineProperty(finalResponse, 'data', {
+      value: {},
+      writable: false,
+    });
   }
   return finalResponse;
 }
