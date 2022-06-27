@@ -18,9 +18,12 @@ import {PlayGround} from '@site/src/components/docs/Playground'
 - throwing Error when http status code is not between 200 and 299.( also supports custom error handling logic.)
 - create a Instance with default options.
 - Lifecycle methods.
+- Node.js and SSR support.
 
 
 ## Installation
+
+### browser
 
 <Tabs>
 <TabItem value="npm" label="npm">
@@ -39,6 +42,39 @@ yarn add http-pro
 </TabItem>
 </Tabs>
 
+### SSR(node.js)
+
+<Tabs>
+<TabItem value="npm" label="npm">
+
+```bash
+npm install http-pro @http-pro/isomorphic 
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn add http-pro @http-pro/isomorphic 
+```
+
+</TabItem>
+</Tabs>
+
+:::note
+`@http-pro/isomorphic` uses [node-fetch](https://www.npmjs.com/package/node-fetch) under the hood, so it's well tried and tested. 
+:::
+
+## Requirements
+ ### Browser
+
+![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
+--- | --- | --- | --- | --- |
+66+ ✔ | 57+ ✔ | 79+ ✔ | 53+ ✔ | 11.1+ ✔ |
+
+### node
+
+ - version >= **16**
 
 ## Simple example
 
