@@ -1,0 +1,46 @@
+---
+sidebar_position: 9
+id: node
+title: Node
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import { NodeExample } from '@site/src/components/docs/node';
+
+
+- `http-pro` provides support for **node.js(v.18)** out of the box. but if you are working with **node.js(v.16)** you need to install one more additional package.
+
+
+<Tabs>
+<TabItem value="npm" label="npm">
+
+```bash
+npm install http-pro @http-pro/isomorphic 
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn add http-pro @http-pro/isomorphic 
+```
+
+</TabItem>
+</Tabs>
+
+## Example
+
+1. node-v16
+
+<NodeExample/>
+
+<br/><br/>
+
+:::note
+As you can see `@http-pro/isomorphic` has a same syntax as `http-pro`, so there won't be any new learning curve if you want to use it in node. 
+:::
+
+2. node-v18
+
+- At this moment there is no online IDE supports version 18, so if you want to play around with node-18, i have created simple [stater-pack](https://github.com/pranshushah/http-pro/tree/main/node-example) with docker.
