@@ -5,7 +5,7 @@ export function Next() {
     <iframe
       width="100%"
       height="500px"
-      src="https://replit.com/@pranshushah/http-pro-nextjs?embed=true"
+      src="https://replit.com/@pranshushah/http-pro-nextjs?lite=true"
     ></iframe>
   );
 }
