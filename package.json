@@ -36,7 +36,8 @@
   "scripts": {
     "prepare": "yarn build",
     "size": "size-limit",
-    "analyze": "size-limit"
+    "analyze": "size-limit",
+    "build": "tsup"
   },
   "peerDependencies": {},
   "jest": {
