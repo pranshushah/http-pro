@@ -1,8 +1,6 @@
 {
   "version": "0.3.5",
   "license": "MIT",
-  "main": "dist/http-pro.esm.js",
-  "exports": "./dist/http-pro.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
@@ -57,7 +55,6 @@
   },
   "name": "http-pro",
   "author": "pranshu shah",
-  "module": "dist/http-pro.esm.js",
   "type": "module",
   "size-limit": [
     {
