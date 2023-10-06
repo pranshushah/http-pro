@@ -52,14 +52,10 @@
     "prepare": "yarn build",
     "size": "size-limit",
     "analyze": "size-limit",
-    "build": "tsup"
+    "build": "tsup",
+    "test": "npx jest"
   },
   "peerDependencies": {},
-  "jest": {
-    "setupFiles": [
-      "./src/setupJest.ts"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pranshushah/http-pro"
@@ -81,9 +77,12 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@types/jest": "^29.5.5",
     "husky": "^7.0.4",
+    "jest": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
     "size-limit": "^7.0.8",
+    "ts-jest": "^29.1.1",
     "tslib": "^2.4.0",
     "tsup": "^7.2.0",
     "typescript": "^4.3.4"
