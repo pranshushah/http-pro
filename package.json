@@ -1,9 +1,24 @@
 {
   "version": "0.3.5",
   "license": "MIT",
-  "main": "dist/http-pro.esm.js",
-  "exports": "./dist/http-pro.esm.js",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./dist/index.d.cts",
+        "default": "./dist/index.d.ts"
+      },
+      "default": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      },
+      "browser": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      }
+    }
+  },
   "files": [
     "dist"
   ],
@@ -34,13 +49,10 @@
     "node": ">=16"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build --format esm --target node",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
     "prepare": "yarn build",
     "size": "size-limit",
-    "analyze": "size-limit"
+    "analyze": "size-limit",
+    "build": "tsup"
   },
   "peerDependencies": {},
   "jest": {
@@ -52,11 +64,6 @@
     "type": "git",
     "url": "https://github.com/pranshushah/http-pro"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
   "prettier": {
     "printWidth": 80,
     "semi": true,
@@ -65,12 +72,11 @@
   },
   "name": "http-pro",
   "author": "pranshu shah",
-  "module": "dist/http-pro.esm.js",
   "type": "module",
   "size-limit": [
     {
-      "path": "dist/http-pro.esm.js",
-      "limit": "10 KB"
+      "path": "dist/index.js",
+      "limit": "6 KB"
     }
   ],
   "devDependencies": {
@@ -78,8 +84,8 @@
     "husky": "^7.0.4",
     "jest-fetch-mock": "^3.0.3",
     "size-limit": "^7.0.8",
-    "tsdx": "^0.14.1",
     "tslib": "^2.4.0",
+    "tsup": "^7.2.0",
     "typescript": "^4.3.4"
   },
   "dependencies": {}
