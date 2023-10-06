@@ -1,7 +1,22 @@
 {
   "version": "0.3.5",
   "license": "MIT",
-  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./dist/index.d.cts",
+        "default": "./dist/index.d.ts"
+      },
+      "default": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      },
+      "browser": {
+        "require": "./dist/index.cjs",
+        "import": "./dist/index.js"
+      }
+    }
+  },
   "files": [
     "dist"
   ],
