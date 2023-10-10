@@ -1,6 +1,6 @@
 import { responseTypes } from '../utils/constant';
 
-export type HValidator = Promise<(value: any) => any>;
+export type HPValidator = Promise<(value: any) => any>;
 
 export type _BaseSearchParamsInit =
   | string
@@ -28,7 +28,7 @@ export interface HttpOptions extends RequestInit {
   searchParams?: SearchParamsInit;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
-  validationSchema?: HValidator;
+  validationSchema?: HPValidator;
   json?: unknown;
   interceptors?: Interceptors;
   responseType?: keyof typeof responseTypes;
