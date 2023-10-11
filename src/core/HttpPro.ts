@@ -67,7 +67,11 @@ export class HttpPro {
     return await this._fetch<ResponseData>(x, 'DELETE', httpOptions);
   }
 
-  private _defaultOptions: HttpOptions | undefined = { responseType: 'json' };
+  private _defaultOptions: HttpOptions | undefined = {
+    responseType: 'json',
+    validationOptions: { mode: 'async', raw: true },
+  };
+
   constructor(defaultOptions?: HttpOptions) {
     this._defaultOptions = mergeOptions(defaultOptions, this._defaultOptions);
   }
@@ -101,7 +105,7 @@ export class HttpPro {
       const joinedUrl = joinUrl(input, options);
       const urlWithParams = addSearchParams(joinedUrl, options);
       request = new globalThis.Request(
-        (urlWithParams as unknown) as RequestInfo,
+        urlWithParams as unknown as RequestInfo,
         options
       );
     } else {

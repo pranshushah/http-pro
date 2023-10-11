@@ -1,4 +1,9 @@
-import { HttpOptions, Interceptors, InternalHttpOptions } from '../types';
+import {
+  HValidationOptions,
+  HttpOptions,
+  Interceptors,
+  InternalHttpOptions,
+} from '../types';
 
 export function mergeHeaders(
   extendedHeaders: HeadersInit = {},
@@ -26,6 +31,13 @@ export function mergeInterceptors(
   return result;
 }
 
+export function mergeValidationOptions(
+  extendedValidation: HValidationOptions = {},
+  baseValidation: HValidationOptions = {}
+) {
+  return { ...baseValidation, ...extendedValidation };
+}
+
 export function mergeOptions(
   extendedOptions: HttpOptions = {},
   baseOptions: HttpOptions = {}
@@ -35,11 +47,18 @@ export function mergeOptions(
     extendedOptions.interceptors,
     baseOptions.interceptors
   );
+
+  const validationOptions = mergeValidationOptions(
+    extendedOptions.validationOptions,
+    baseOptions.validationOptions
+  );
+
   const mergedOptions: InternalHttpOptions = {
     ...baseOptions,
     ...extendedOptions,
     headers,
     interceptors,
+    validationOptions,
     fetch: extendedOptions.fetch
       ? extendedOptions.fetch
       : baseOptions.fetch

@@ -2,6 +2,18 @@ import { responseTypes } from '../utils/constant';
 
 export type HPValidator = Promise<(value: any) => any>;
 
+export type HValidationOptions = {
+  /**
+   * @default 'async'
+   */
+  mode?: 'async' | 'sync';
+  /**
+   * @description If true, the validation function will return the raw data instead of the parsed data.
+   * @default true
+   */
+  raw?: boolean;
+};
+
 export type _BaseSearchParamsInit =
   | string
   | [string, string][]
@@ -31,6 +43,7 @@ export interface HttpOptions extends RequestInit {
   validationSchema?: HPValidator;
   json?: unknown;
   interceptors?: Interceptors;
+  validationOptions?: HValidationOptions;
   responseType?: keyof typeof responseTypes;
   fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }

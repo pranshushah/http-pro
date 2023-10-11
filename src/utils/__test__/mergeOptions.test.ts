@@ -43,3 +43,13 @@ it('should merge interceptors', () => {
   expect(typeof mergedOptions.interceptors?.beforeError).toBe('function');
   expect(typeof mergedOptions.interceptors?.beforeRequest).toBe('function');
 });
+
+it('should merge validationOptions', () => {
+  const validationOptions1 = { mode: 'async', raw: true } as const;
+  const validationOptions2 = { mode: 'sync' } as const;
+  const options1: HttpOptions = { validationOptions: validationOptions1 };
+  const options2: HttpOptions = { validationOptions: validationOptions2 };
+  const mergedOptions = mergeOptions(options2, options1);
+  expect(mergedOptions.validationOptions?.mode).toBe('sync');
+  expect(mergedOptions.validationOptions?.raw).toBe(true);
+});
