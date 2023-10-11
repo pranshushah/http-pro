@@ -1,6 +1,10 @@
 import { responseTypes } from '../utils/constant';
 
-export type HPValidator = Promise<(value: any) => any>;
+export type HPValidator<ResponseType extends any = any> = (
+  data: ResponseType,
+  options?: HValidationOptions,
+  schema?: any
+) => Promise<ResponseType>;
 
 export type HValidationOptions = {
   /**
@@ -35,19 +39,22 @@ export type Interceptors = {
   ) => Response | Promise<Response>;
 };
 
-export interface HttpOptions extends RequestInit {
+export interface HttpOptions<ResponseType extends any = any>
+  extends RequestInit {
   baseUrl?: string | URL;
   searchParams?: SearchParamsInit;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
   validationSchema?: HPValidator;
+  validationFunction?: HPValidator<ResponseType>;
   json?: unknown;
   interceptors?: Interceptors;
   validationOptions?: HValidationOptions;
   responseType?: keyof typeof responseTypes;
   fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
-export interface InternalHttpOptions extends HttpOptions {
+export interface InternalHttpOptions<ResponseType extends any = any>
+  extends HttpOptions<ResponseType> {
   headers: Headers;
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }

@@ -1,17 +1,17 @@
 import { HpResponse, InternalHttpOptions } from '../types';
 
-export async function addDataInResponse<ResponseType = any>(
+export async function addDataInResponse<ResponseType extends any = any>(
   response: Response,
-  options: InternalHttpOptions
+  options: InternalHttpOptions<ResponseType>
 ) {
   //@ts-ignore
   let finalResponse: HpResponse<ResponseType> = response.clone();
   try {
     let data: ResponseType;
     if (options.responseType) {
-      data = ((await response[
+      data = (await response[
         options.responseType
-      ]()) as unknown) as ResponseType;
+      ]()) as unknown as ResponseType;
     } else {
       data = await response.json();
     }

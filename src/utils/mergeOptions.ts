@@ -38,7 +38,7 @@ export function mergeValidationOptions(
   return { ...baseValidation, ...extendedValidation };
 }
 
-export function mergeOptions(
+export function mergeOptions<ResponseData extends any = any>(
   extendedOptions: HttpOptions = {},
   baseOptions: HttpOptions = {}
 ) {
@@ -53,7 +53,7 @@ export function mergeOptions(
     baseOptions.validationOptions
   );
 
-  const mergedOptions: InternalHttpOptions = {
+  const mergedOptions: InternalHttpOptions<ResponseData> = {
     ...baseOptions,
     ...extendedOptions,
     headers,
