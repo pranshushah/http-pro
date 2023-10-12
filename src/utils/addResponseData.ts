@@ -15,6 +15,13 @@ export async function addDataInResponse<ResponseType extends any = any>(
     } else {
       data = await response.json();
     }
+    if (typeof options.validationFunction === 'function') {
+      data = await options.validationFunction(
+        data,
+        options.validationOptions,
+        options.validationSchema
+      );
+    }
     Object.defineProperty(finalResponse, 'data', {
       value: data,
       writable: false,

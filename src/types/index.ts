@@ -1,5 +1,7 @@
 import { responseTypes } from '../utils/constant';
 
+export type HPAnyObject = Record<string, any>;
+
 export type HPValidator<ResponseType extends any = any> = (
   data: ResponseType,
   options?: HValidationOptions,
@@ -45,7 +47,7 @@ export interface HttpOptions<ResponseType extends any = any>
   searchParams?: SearchParamsInit;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
-  validationSchema?: HPValidator;
+  validationSchema?: HPAnyObject;
   validationFunction?: HPValidator<ResponseType>;
   json?: unknown;
   interceptors?: Interceptors;
