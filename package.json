@@ -76,7 +76,7 @@
     }
   ],
   "devDependencies": {
-    "@http-pro/validator": "^0.0.1",
+    "@http-pro/validator": "^0.1.0",
     "@size-limit/preset-small-lib": "^7.0.8",
     "@types/jest": "^29.5.5",
     "husky": "^7.0.4",
