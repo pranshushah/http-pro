@@ -17,7 +17,7 @@ export class HttpPro {
    */
   async get<ResponseData extends any = any>(
     x: Input,
-    httpOptions?: HttpOptions
+    httpOptions?: HttpOptions<ResponseData>
   ) {
     return await this._fetch<ResponseData>(x, 'GET', httpOptions);
   }
@@ -29,7 +29,7 @@ export class HttpPro {
    */
   async post<ResponseData extends any = any>(
     x: Input,
-    httpOptions?: HttpOptions
+    httpOptions?: HttpOptions<ResponseData>
   ) {
     return await this._fetch<ResponseData>(x, 'POST', httpOptions);
   }
@@ -40,7 +40,7 @@ export class HttpPro {
    */
   async put<ResponseData extends any = any>(
     x: Input,
-    httpOptions?: HttpOptions
+    httpOptions?: HttpOptions<ResponseData>
   ) {
     return await this._fetch<ResponseData>(x, 'PUT', httpOptions);
   }
@@ -51,7 +51,7 @@ export class HttpPro {
    */
   async patch<ResponseData extends any = any>(
     x: Input,
-    httpOptions?: HttpOptions
+    httpOptions?: HttpOptions<ResponseData>
   ) {
     return await this._fetch<ResponseData>(x, 'PATCH', httpOptions);
   }
@@ -62,12 +62,16 @@ export class HttpPro {
    */
   async delete<ResponseData extends any = any>(
     x: Input,
-    httpOptions?: HttpOptions
+    httpOptions?: HttpOptions<ResponseData>
   ) {
     return await this._fetch<ResponseData>(x, 'DELETE', httpOptions);
   }
 
-  private _defaultOptions: HttpOptions | undefined = { responseType: 'json' };
+  private _defaultOptions: HttpOptions | undefined = {
+    responseType: 'json',
+    validationOptions: { mode: 'async', raw: true },
+  };
+
   constructor(defaultOptions?: HttpOptions) {
     this._defaultOptions = mergeOptions(defaultOptions, this._defaultOptions);
   }
@@ -83,10 +87,13 @@ export class HttpPro {
   private async _fetch<ResponseData extends any>(
     input: Input,
     method: HttpMethod,
-    httpOptions?: HttpOptions
+    httpOptions?: HttpOptions<ResponseData>
   ) {
     let request: globalThis.Request;
-    const options = mergeOptions(httpOptions, this._defaultOptions);
+    const options = mergeOptions<ResponseData>(
+      httpOptions,
+      this._defaultOptions
+    );
     const abortController = new globalThis.AbortController();
     options.timeout = validateTimeout(options.timeout);
     if (options.timeout !== undefined) {
@@ -101,7 +108,7 @@ export class HttpPro {
       const joinedUrl = joinUrl(input, options);
       const urlWithParams = addSearchParams(joinedUrl, options);
       request = new globalThis.Request(
-        (urlWithParams as unknown) as RequestInfo,
+        urlWithParams as unknown as RequestInfo,
         options
       );
     } else {
