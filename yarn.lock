@@ -407,7 +407,7 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.18.20.tgz#786c5f41f043b07afb1af37683d7c33668858f6d"
   integrity sha512-kTdfRcSiDfQca/y9QIkng02avJ+NCaQvrMejlsB3RRv5sE9rRoeBPISaZpKxHELzRxZyLvNts1P27W3wV+8geQ==
 
-"@http-pro/validator@^0.0.2":
+"@http-pro/validator@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@http-pro/validator/-/validator-0.1.0.tgz#ccd9580fbdcb3398712bd0f68aefb08544f33a60"
   integrity sha512-FN9REcVFnlyHoMhlwgEHOnG5A6zafHIfsbkF66bTTo5KPKandTvfoZlhKky89HZK/FYh9iuHufkWMq0DvtbcmQ==
