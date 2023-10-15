@@ -12,12 +12,15 @@ import { PlayGround } from '@site/src/components/docs/Playground';
 
 ## Features
 
-- First-class typescript support.( Better than default typescript support for Fetch API).
-- Simple syntax( For example, `hp.get(url)` to send get request).
+- First-class typescript support.(Better than default typescript support for Fetch API).
+- Simple syntax( For example, `hp.get(url)` to send a get request).
 - timeout.
 - throwing Error when http status code is not between 200 and 299.( also supports custom error handling logic.)
 - create a Instance with default options.
 - Lifecycle methods.
+- data validation with zod and yup.
+- Node and Bun support.
+- and more...
 
 ## Installation
 
@@ -42,9 +45,17 @@ yarn add http-pro
 
 ### Browser
 
-| ![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png) |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
-| 66+ ✔                                                                                               | 57+ ✔                                                                                                  | 79+ ✔                                                                                       | 53+ ✔                                                                                            | 11.1+ ✔                                                                                             |
+| Chrome | Firefox | Edge  | Opera | Safari  |
+| ------ | ------- | ----- | ----- | ------- |
+| 66+ ✔  | 57+ ✔   | 16+ ✔ | 53+ ✔ | 12.1+ ✔ |
+
+### Node
+
+- Node v 18.0.0 or above.
+
+### Bun
+
+- Bun v 1.0.0 or above.
 
 ## Simple example
 
@@ -70,10 +81,6 @@ console.log(res.data);
 
 ## live Playground.
 
-- Playground allows you to test http-pro in browser without installing anything.
-- this might be useful for following things.
-
-1. testing **http-pro**.
-2. reporting bugs.
+- Playground allows you to try it out http-pro in browser without installing anything.
 
 <PlayGround />
