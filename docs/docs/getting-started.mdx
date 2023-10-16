@@ -4,7 +4,7 @@ sidebar_position: 1
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import {PlayGround} from '@site/src/components/docs/Playground'
+import { PlayGround } from '@site/src/components/docs/Playground';
 
 # Getting Started
 
@@ -12,18 +12,14 @@ import {PlayGround} from '@site/src/components/docs/Playground'
 
 ## Features
 
-- First-class typescript support.( Better than default typescript support for Fetch API). 
+- First-class typescript support.( Better than default typescript support for Fetch API).
 - Simple syntax( For example, `hp.get(url)` to send get request).
 - timeout.
 - throwing Error when http status code is not between 200 and 299.( also supports custom error handling logic.)
 - create a Instance with default options.
 - Lifecycle methods.
-- Node.js and SSR support.
-
 
 ## Installation
-
-### browser
 
 <Tabs>
 <TabItem value="npm" label="npm">
@@ -42,44 +38,17 @@ yarn add http-pro
 </TabItem>
 </Tabs>
 
-### SSR(node.js)
-
-<Tabs>
-<TabItem value="npm" label="npm">
-
-```bash
-npm install http-pro @http-pro/isomorphic 
-```
-
-</TabItem>
-<TabItem value="yarn" label="yarn">
-
-```bash
-yarn add http-pro @http-pro/isomorphic 
-```
-
-</TabItem>
-</Tabs>
-
-:::note
-`@http-pro/isomorphic` uses [node-fetch](https://www.npmjs.com/package/node-fetch) under the hood, so it's well tried and tested. 
-:::
-
 ## Requirements
- ### Browser
 
-![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png)
---- | --- | --- | --- | --- |
-66+ ✔ | 57+ ✔ | 79+ ✔ | 53+ ✔ | 11.1+ ✔ |
+### Browser
 
-### node
-
- - version >= **16**
+| ![Chrome](https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png) | ![Opera](https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png) | ![Safari](https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png) |
+| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| 66+ ✔                                                                                               | 57+ ✔                                                                                                  | 79+ ✔                                                                                       | 53+ ✔                                                                                            | 11.1+ ✔                                                                                             |
 
 ## Simple example
 
 ```ts
-
 import hp from 'http-pro';
 
 type ResponseData = {
@@ -89,10 +58,11 @@ type ResponseData = {
   userId: number;
 };
 
-const res = await hp.get<ResponseData>('https://jsonplaceholder.typicode.com/todos/1');
-console.log(res.data); 
+const res = await hp.get<ResponseData>(
+  'https://jsonplaceholder.typicode.com/todos/1'
+);
+console.log(res.data);
 // userId: 1, id: 1, title: "delectus aut autem", completed: false
-
 ```
 
 - here `res` is [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object but with on additional property **data**. by default data will have whatever output we get from [res.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json). if `res.json()` throws an error then data will have empty `{}`. check out http options for more details.
@@ -102,8 +72,8 @@ console.log(res.data);
 
 - Playground allows you to test http-pro in browser without installing anything.
 - this might be useful for following things.
+
 1. testing **http-pro**.
 2. reporting bugs.
 
-<PlayGround/>
-
+<PlayGround />
