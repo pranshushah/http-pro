@@ -8,7 +8,7 @@ import { HttpOptions } from '@site/src/components/API';
 
 <HttpOptions/>
 
-- second argument of the **http-pro** request is the object that can have following properties.
+- second argument of the **http-pro** request is an object which can have following properties.
 
 1. All properties of second parameter of [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Request#properties).
 2. ### `baseUrl`
@@ -118,39 +118,3 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
   const res = await hp.get('someUrl.com');
   console.log(res.data); // will be parsed json
   ```
-
-- If you define typescript type of `HttpOption` it will look something like this.
-
-```ts
-type SearchParamsInit =
-  | string
-  | URLSearchParams
-  | undefined
-  | [string | boolean | number, string | number | boolean][]
-  | Record<string, string | boolean | number>;
-
-type Interceptors = {
-  beforeRequest?: (request: Request) => Request | Promise<Request>;
-  beforeError?: (response: Response, request: Request) => void | Promise<void>;
-  afterResponse?: (
-    response: Response,
-    request: Request
-  ) => Response | Promise<Response>;
-};
-
-interface HttpOptions extends RequestInit {
-  baseUrl?: string | URL;
-  searchParams?: SearchParamsInit;
-  timeout?: number;
-  validateStatus?: (status: number) => boolean;
-  json?: unknown;
-  interceptors?: Interceptors;
-  responseType?:
-    | 'arrayBuffer'
-    | 'blob'
-    | 'json'
-    | 'text'
-    | 'formData'
-    | undefined;
-}
-```

@@ -6,15 +6,16 @@ title: HpResponse
 
 import { HpResponse } from '@site/src/components/API';
 
-<HpResponse /> - whenever you fetch a request using \\\\\\*\\\\\\*http-pro\\\\\\*\\\\\\* you will get Response which will have following properties.
+<HpResponse /> <br />{' '}
+
+- whenever you fetch a request using http-pro
+  you will get a response which will have following properties.
 
 1. all the properties of javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
-2. ### `data`
-
-- data will have is the response provided by server.<br/><br/>
-  :::note
-  By default http-pro assumes that it will get json data from server. if you want change this behaviour change [responseType](HttpOptions#responsetype) to desired value.
-  :::
+2. `data` : response data sent by the server.<br/><br/>
+   :::note
+   By default http-pro assumes that it will get json data from server but if you want change this behaviour, add a desired value in [responseType](HttpOptions#responsetype) property of HttpOptions.
+   :::
 
 ```ts
 export interface HpResponse<ResponseData extends any> extends Response {
