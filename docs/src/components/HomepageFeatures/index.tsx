@@ -16,9 +16,8 @@ export default function HomepageFeatures(): JSX.Element {
               fetch api.
             </a>
           </li>
-          <li>Better Typescript support than fetch api.</li>
+          <li>Better Typescript support than default fetch API.</li>
           <li>Simpler syntax.</li>
-          <li>Light weight {`(gzipped < 5kb)`}.</li>
           <li>
             Works well with{' '}
             <a
@@ -46,6 +45,8 @@ export default function HomepageFeatures(): JSX.Element {
           </li>
           <li>lifecycle methods.</li>
           <li>Instance and extending instances with defaults.</li>
+          <li>validate your response with zod and yup.</li>
+          <li>Light weight {`(gzipped < 6kb)`}.</li>
         </ul>
         <h1>Why Http pro over axios?</h1>
         <ul>
@@ -71,7 +72,7 @@ export default function HomepageFeatures(): JSX.Element {
             Objects.
           </li>
           <li>
-            it does not have support for{' '}
+            it does not support{' '}
             <a
               href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API#service_worker_concepts_and_usage"
               target="_blank"
@@ -86,10 +87,6 @@ export default function HomepageFeatures(): JSX.Element {
               Cache API{' '}
             </a>
             out of the box.
-          </li>
-          <li>
-            axios has implemented a lot functionality that fetch provides out of
-            the box. which means that fetch-based library will be less buggy.
           </li>
         </ul>
       </div>
