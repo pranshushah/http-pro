@@ -15,14 +15,14 @@ import {
 
 ## 1. JSON data
 
-- getting json data is very straight forward. you just have to add url and you will get `json` as javascript object in `res.data` property.
+- By default when you fetch json data from server, it will be parsed and you will get a javascript object in data property of [HpResponse](../API/HpResponse) object.
 
 <Json />
 <br />
 <br />
 
 :::note
-Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also parse data as shown below.
 :::
 
 <br />
@@ -30,14 +30,14 @@ Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/
 
 ## 2. Text data
 
-- To get text data from response you just need to set `text` as [responseType](../API/HttpOptions#responsetype) and in data property of [HpResponse](../API/HpResponse) object will have `text` data.
+- if you are fetching text data then you just need to set `text` as [responseType](../API/HttpOptions#responsetype) and the data property of [HpResponse](../API/HpResponse) will have `text` data.
 
 <Text />
 <br />
 <br />
 
 :::note
-Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also parse data as shown below.
 :::
 
 <br />
@@ -52,7 +52,7 @@ Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/
 <br />
 
 :::note
-Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also get data as shown below.
+Here, `res` is just a javascript [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object, so you can also parse data as shown below.
 :::
 
 <br />
