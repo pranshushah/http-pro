@@ -1,14 +1,8 @@
-import { HttpError } from './HttpError';
+import { HttpProError } from './HttpProError';
 import { TimeoutError } from './TimeoutError';
 
-export function isHttpError(error: unknown): error is HttpError {
-  return error instanceof HttpError;
-}
-
-export function isHttpProError(
-  error: unknown
-): error is HttpError | TimeoutError {
-  return error instanceof HttpError || error instanceof TimeoutError;
+export function isHttpProError(error: unknown): error is HttpProError {
+  return error instanceof HttpProError;
 }
 
 export function isHttpProTimeoutError(error: unknown): error is TimeoutError {
