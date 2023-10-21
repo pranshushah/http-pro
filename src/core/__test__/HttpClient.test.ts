@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 import { hp } from '../../index';
-import { HttpError } from '../../Error';
+import { HttpProError } from '../../Error';
 describe('Testing get method with differnet properties', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -72,7 +72,7 @@ describe('Testing get method with differnet properties', () => {
     const url = await res.text();
     expect(url).toBe('https://www.x.com/');
   });
-  it('should throw HttpError', async () => {
+  it('should throw HttpProError', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
       status: 401,
       statusText: 'Unauthorized',
@@ -80,16 +80,16 @@ describe('Testing get method with differnet properties', () => {
     try {
       await hp.get('https://www.x.com');
     } catch (error) {
-      expect(error instanceof HttpError).toBeTruthy();
+      expect(error instanceof HttpProError).toBeTruthy();
       try {
         const request = new Request('https://www.x.com');
         await hp.get(request);
       } catch (error1) {
-        expect(error1 instanceof HttpError).toBeTruthy();
+        expect(error1 instanceof HttpProError).toBeTruthy();
       }
     }
   });
-  it('should not throw HttpError', async () => {
+  it('should not throw HttpProError', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
       status: 401,
       statusText: 'Unauthorized',
@@ -108,7 +108,7 @@ describe('Testing get method with differnet properties', () => {
         },
       });
     } catch (error) {
-      expect(error instanceof HttpError).toBeFalsy();
+      expect(error instanceof HttpProError).toBeFalsy();
     }
   });
 });
@@ -184,7 +184,7 @@ describe('Testing post method with differnet properties', () => {
     const url = await res.text();
     expect(url).toBe('https://www.x.com/');
   });
-  it('should throw HttpError', async () => {
+  it('should throw HttpProError', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
       status: 401,
       statusText: 'Unauthorized',
@@ -192,16 +192,16 @@ describe('Testing post method with differnet properties', () => {
     try {
       await hp.post('https://www.x.com');
     } catch (error) {
-      expect(error instanceof HttpError).toBeTruthy();
+      expect(error instanceof HttpProError).toBeTruthy();
       try {
         const request = new Request('https://www.x.com');
         await hp.post(request);
       } catch (error1) {
-        expect(error1 instanceof HttpError).toBeTruthy();
+        expect(error1 instanceof HttpProError).toBeTruthy();
       }
     }
   });
-  it('should not throw HttpError', async () => {
+  it('should not throw HttpProError', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
       status: 401,
       statusText: 'Unauthorized',
@@ -220,7 +220,7 @@ describe('Testing post method with differnet properties', () => {
         },
       });
     } catch (error) {
-      expect(error instanceof HttpError).toBeFalsy();
+      expect(error instanceof HttpProError).toBeFalsy();
     }
   });
 });

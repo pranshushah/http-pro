@@ -1,4 +1,4 @@
-export class HttpError extends Error {
+export class HttpProError extends Error {
   public response: Response;
   public request: Request;
   constructor(response: Response, request: Request) {

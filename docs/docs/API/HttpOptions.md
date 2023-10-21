@@ -52,7 +52,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 5. ### `validateStatus`
 
    - **Type** : `(status: number) => boolean`
-   - `validateStatus` determines whether to throw HttpError for given status code.
+   - `validateStatus` determines whether to throw HttpProError for given status code.
    - You can find detailed examples [Here](../example/error-handling#custom-error-handling).
      <br/><br/>
 
@@ -76,7 +76,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
    2. #### `interceptors.beforeError`
 
       - **Type** : `beforeError : (response: Response, request: Request) => void | Promise<void>`
-      - `beforeError` will run just before throwing `httpError`. function will receive `Response` and `Request` object as an arguements.
+      - `beforeError` will run just before throwing `HttpProError`. function will receive `Response` and `Request` object as an arguements.
         <br/><br/>
 
    3. #### `interceptors.afterResponse`

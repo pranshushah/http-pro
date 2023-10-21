@@ -1,4 +1,4 @@
-import { HttpError } from '../Error';
+import { HttpProError } from '../Error';
 import { HttpOptions } from '../types';
 
 export async function validateResponse(
@@ -22,7 +22,7 @@ export async function validateResponse(
       if (typeof httpOptions?.interceptors?.beforeError === 'function') {
         await httpOptions.interceptors.beforeError(response, request);
       }
-      throw new HttpError(response, request);
+      throw new HttpProError(response, request);
     }
   } else {
     if (response.ok) {
@@ -40,7 +40,7 @@ export async function validateResponse(
       if (typeof httpOptions?.interceptors?.beforeError === 'function') {
         await httpOptions.interceptors.beforeError(response, request);
       }
-      throw new HttpError(response, request);
+      throw new HttpProError(response, request);
     }
   }
 }
