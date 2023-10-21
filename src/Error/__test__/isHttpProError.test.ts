@@ -2,7 +2,7 @@ import { TimeoutError } from '../TimeoutError';
 import { HttpProError } from '../HttpProError';
 import { isHttpProTimeoutError, isHttpProError } from '../isHttpProError';
 
-it('should return true for HttpError instance', () => {
+it('should return true for HttpProError instance', () => {
   try {
     throw new HttpProError(
       new Response('Not Found', { status: 404 }),
@@ -14,7 +14,7 @@ it('should return true for HttpError instance', () => {
   }
 });
 
-it('should return false for HttpError instance', () => {
+it('should return false for HttpProError instance', () => {
   try {
     throw new TimeoutError(new Request('https://www.google.com'), 100);
   } catch (e) {
