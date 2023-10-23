@@ -10,7 +10,7 @@ export class HttpProError extends Error {
     super(`Request failed with ${reason}`);
     Object.setPrototypeOf(this, new.target.prototype);
 
-    this.name = 'HttpError';
+    this.name = 'HttpProError';
     this.request = request;
     this.response = response;
   }
