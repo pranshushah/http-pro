@@ -43,7 +43,7 @@ export default function HomepageFeatures(): JSX.Element {
             </a>
             Objects.
           </li>
-          <li>lifecycle methods.</li>
+          <li>interceptor function.</li>
           <li>Instance and extending instances with defaults.</li>
           <li>validate your response with zod and yup.</li>
           <li>Light weight {`(gzipped < 6kb)`}.</li>
