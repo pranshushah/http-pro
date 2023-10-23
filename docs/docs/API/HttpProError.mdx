@@ -1,0 +1,39 @@
+---
+sidebar_position: 4
+id: HttpProError
+title: HttpProError
+---
+
+- When [Response.status](https://developer.mozilla.org/en-US/docs/Web/API/Response/status) is not between 200 and 299 or [validateStatus](./HttpOptions#validatestatus) function returns false, **HttpProError** will be thrown.
+
+- **HttpProError** object will have following property.
+
+### `name`
+
+- the name of the error, always set to **HttpProError**.
+
+### `message`
+
+- A string representing the error message.
+
+### `response`
+
+- The [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) object representing the Http response that caused the error.
+
+### `request`
+
+- The [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object representing the Http request that caused the error.
+
+<br />
+
+## isHttpProError
+
+- `isHttpProError` function is a type guard that checks if an error is an instance of the `HttpProError` class.
+
+### Parameter
+
+#### `error` : the error to check
+
+### Return value
+
+- `true` if the error is an instance of the `HttpProError` class, `false` otherwise.
