@@ -64,32 +64,31 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 
 7. ### `interceptors`
 
-   - `interceptors` allows you to run custom logic before sending the request, before throwing error or after you get the response. all functions can run synchronously or it can be async.
+   - `interceptors` allows you to run custom logic before sending the request, before throwing error or after you get the response. interceptors functions can be sync or async.
      <br/><br/>
 
    1. #### `interceptors.beforeRequest`
 
       - **Type** : `beforeRequest?: (request: Request) => Request | Promise<Request>`
-      - `beforeRequest` will run just before sending the request and it will receive [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object and it should return `Request` object.
+      - `beforeRequest` will run just before sending the request. it will receive [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object as an argument and it should return [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
         <br/><br/>
 
    2. #### `interceptors.beforeError`
 
       - **Type** : `beforeError : (response: Response, request: Request) => void | Promise<void>`
-      - `beforeError` will run just before throwing `HttpProError`. function will receive `Response` and `Request` object as an arguements.
+      - The `beforeError` function is called if the [validateStatus](./HttpOptions#validatestatus) function returns false, or if the [validateStatus](./HttpOptions#validatestatus) function does not exist and the status code is not in the range of 200-299. The beforeError function receives the [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) and [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) objects as arguments.
         <br/><br/>
 
    3. #### `interceptors.afterResponse`
 
       - **Type** : `afterResponse : ( response: Response, request: Request) => Response | Promise<Response>`.
 
-      - `beforeError` will run just after we get `Response`. function will receive `Response` and `Request` object as an arguements.
+      - `afterResponse` will run just after [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) is resolved. function will receive [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) and [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object as an arguements.
+        :::note
+        Here, `afterResponse` won't be called if the [validateStatus](./HttpOptions#validatestatus) function returns false, or if the [validateStatus](./HttpOptions#validatestatus) function does not exist and the status code is not in the range of 200-299.
+        :::
 
-      :::note
-      Here response won't be [HpResponse](HpResponse.mdx). conversion to `HpResponse` will happen after this step.
-      :::
-
-- You can detailed examples Here.
+- You can detailed examples [Here](../example/interceptors).
   <br/><br/>
 
 1.  ### `responseType`
