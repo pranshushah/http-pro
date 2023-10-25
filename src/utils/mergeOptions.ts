@@ -1,7 +1,7 @@
 import {
   HPValidationOptions,
   HttpOptions,
-  Interceptors,
+  HPInterceptors,
   InternalHttpOptions,
 } from '../types';
 
@@ -18,12 +18,12 @@ export function mergeHeaders(
 }
 
 export function mergeInterceptors(
-  extendedInterceptors: Interceptors = {},
-  baseInterceptors: Interceptors = {}
+  extendedInterceptors: HPInterceptors = {},
+  baseInterceptors: HPInterceptors = {}
 ) {
   let result = { ...baseInterceptors };
   let source = { ...extendedInterceptors };
-  let key: keyof Interceptors;
+  let key: keyof HPInterceptors;
   for (key in source) {
     //@ts-ignore
     result[key] = extendedInterceptors[key];

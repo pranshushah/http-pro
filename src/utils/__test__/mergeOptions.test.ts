@@ -1,4 +1,4 @@
-import { HttpOptions, Interceptors } from '../../types';
+import { HttpOptions, HPInterceptors } from '../../types';
 import { mergeOptions } from '../mergeOptions';
 
 it('should merge headers and config', () => {
@@ -20,7 +20,7 @@ it('should merge headers and config', () => {
 });
 
 it('should merge interceptors', () => {
-  const interceptors: Interceptors = {
+  const interceptors: HPInterceptors = {
     beforeRequest(request: Request) {
       return request;
     },

@@ -32,7 +32,7 @@ export type SearchParamsInit =
   | [string | boolean | number, string | number | boolean][]
   | Record<string, string | boolean | number>;
 
-export type Interceptors = {
+export type HPInterceptors = {
   beforeRequest?: (request: Request) => Request | Promise<Request>;
   beforeError?: (response: Response, request: Request) => void | Promise<void>;
   afterResponse?: (
@@ -50,7 +50,7 @@ export interface HttpOptions<ResponseType extends any = any>
   validationSchema?: HPAnyObject;
   validationFunction?: HPValidator<ResponseType>;
   json?: unknown;
-  interceptors?: Interceptors;
+  interceptors?: HPInterceptors;
   validationOptions?: HPValidationOptions;
   responseType?: keyof typeof responseTypes;
   fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
