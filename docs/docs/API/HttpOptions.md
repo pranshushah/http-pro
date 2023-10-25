@@ -26,7 +26,7 @@ import { HttpOptions } from '@site/src/components/API';
 - You can find detailed example [Here](../example/baseUrl.mdx).
   <br/><br/>
 
-1.  ### `searchParams`
+3.  ### `searchParams`
     - **Type** : `string | object<string, string | number | boolean> | Array<Array<string | number | boolean>> | URLSearchParams | undefined`
     - it will append all the searchParams to url we passed.
     - it will accept all the values supported by [URLSearchParams](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
@@ -91,7 +91,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 - You can detailed examples [Here](../example/interceptors).
   <br/><br/>
 
-1.  ### `responseType`
+8.  ### `responseType`
 
     - **Type** : `'arrayBuffer' | 'blob' | 'json' | 'text' | 'formData' | undefined`
     - **default** : `json`.
@@ -117,3 +117,41 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
   const res = await hp.get('someUrl.com');
   console.log(res.data); // will be parsed json
   ```
+
+9.  ### `validationSchema`
+
+    - schema you want to validate your response data against.
+    - **Type** : `Record<string, any>`
+      <br/><br/>
+
+10. ### `validationOptions`
+
+    - options for validation function if you are using one of the [@http-pro/validator](https://www.npmjs.com/package/@http-pro/validator) function for validation.
+      <br/><br/>
+
+    1. #### `mode`
+
+       - **Type** : `'sync' | 'async'`
+       - **default** : `'async'`
+       - A string indicating the mode of the validation function.
+
+    2. #### `raw`
+       - **Type** : `boolean`
+       - **default** : `true`
+       - boolean indicating whether the validation function should return the raw data instead of the parsed data.
+         <br/><br/>
+
+11. ### `validationFunction`
+
+    - **Type**
+
+    ```ts
+    <ResponseType extends any = any>(
+      data: ResponseType,
+      options?: HValidationOptions,
+      schema?: Record<string, any>
+    ) => Promise<ResponseType>;
+    ```
+
+    - function you want to validate your response data against. it will recive `data`, `options` and `schema` as arguments.
+      <br/><br/>
