@@ -4,11 +4,11 @@ export type HPAnyObject = Record<string, any>;
 
 export type HPValidator<ResponseType extends any = any> = (
   data: ResponseType,
-  options?: HValidationOptions,
+  options?: HPValidationOptions,
   schema?: any
 ) => Promise<ResponseType>;
 
-export type HValidationOptions = {
+export type HPValidationOptions = {
   /**
    * @default 'async'
    */
@@ -51,7 +51,7 @@ export interface HttpOptions<ResponseType extends any = any>
   validationFunction?: HPValidator<ResponseType>;
   json?: unknown;
   interceptors?: Interceptors;
-  validationOptions?: HValidationOptions;
+  validationOptions?: HPValidationOptions;
   responseType?: keyof typeof responseTypes;
   fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }

@@ -1,5 +1,5 @@
 import {
-  HValidationOptions,
+  HPValidationOptions,
   HttpOptions,
   Interceptors,
   InternalHttpOptions,
@@ -32,8 +32,8 @@ export function mergeInterceptors(
 }
 
 export function mergeValidationOptions(
-  extendedValidation: HValidationOptions = {},
-  baseValidation: HValidationOptions = {}
+  extendedValidation: HPValidationOptions = {},
+  baseValidation: HPValidationOptions = {}
 ) {
   return { ...baseValidation, ...extendedValidation };
 }
