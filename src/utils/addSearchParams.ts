@@ -1,4 +1,4 @@
-import { InternalHttpOptions, _BaseSearchParamsInit } from '../types';
+import { InternalHttpOptions, HPBaseSearchParams } from '../types';
 
 export function addSearchParams(
   url: string | globalThis.URL,
@@ -11,7 +11,7 @@ export function addSearchParams(
     //@ts-ignore
     const urlWithParams = new globalThis.URL(url);
     const params = new globalThis.URLSearchParams(
-      httpOptions?.searchParams as _BaseSearchParamsInit
+      httpOptions?.searchParams as HPBaseSearchParams
     );
     params.forEach((value, key) => {
       urlWithParams.searchParams.append(key, value);

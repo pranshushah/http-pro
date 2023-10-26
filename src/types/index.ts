@@ -20,15 +20,15 @@ export type HPValidationOptions = {
   raw?: boolean;
 };
 
-export type _BaseSearchParamsInit =
+export type HPBaseSearchParams =
   | string
   | [string, string][]
   | Record<string, string>
   | URLSearchParams
   | undefined;
 
-export type SearchParamsInit =
-  | _BaseSearchParamsInit
+export type HPSearchParams =
+  | HPBaseSearchParams
   | [string | boolean | number, string | number | boolean][]
   | Record<string, string | boolean | number>;
 
@@ -44,7 +44,7 @@ export type HPInterceptors = {
 export interface HttpOptions<ResponseType extends any = any>
   extends RequestInit {
   baseUrl?: string | URL;
-  searchParams?: SearchParamsInit;
+  searchParams?: HPSearchParams;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
   validationSchema?: HPAnyObject;
