@@ -8,14 +8,14 @@ import { Json, FormData, JsonResponse } from '@site/src/components/docs/post';
 
 ## 1. JSON data
 
-- If you want to send `json` data to the server, just add your javascript object in [json](../API/HttpOptions#json) property of `HttpOptions`.
+- If you want to send `json` data to the server, just add your javascript object in [data](../API/HttpOptions#data) property of `HttpOptions`.
 
 <Json />
 <br />
 <br />
 
 :::note
-whenever users sends the json data to the server using [json](../API/HttpOptions#json) property of `HttpOptions`, it will set `content-type : application/json` header if headers object does not have `content-type` field.
+whenever users sends the json data to the server using [data](../API/HttpOptions#data) property of `HttpOptions`, it will set `content-type : application/json` header if headers object does not have `content-type` field.
 :::
 
 <br />

@@ -49,7 +49,7 @@ export interface HttpOptions<ResponseType extends any = any>
   validateStatus?: (status: number) => boolean;
   validationSchema?: HPAnyObject;
   validationFunction?: HPValidator<ResponseType>;
-  json?: unknown;
+  data?: unknown;
   interceptors?: HPInterceptors;
   validationOptions?: HPValidationOptions;
   responseType?: keyof typeof responseTypes;

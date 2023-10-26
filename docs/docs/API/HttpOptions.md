@@ -56,10 +56,10 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
    - You can find detailed examples [Here](../example/error-handling#custom-error-handling).
      <br/><br/>
 
-6. ### `json`
+6. ### `data`
 
    - **Type** : any value accepted by `JSON.stringify()`.
-   - if you are working with json data instead of using `{body:JSON.stringify({name:"value"})}` just use `{json:{name:"value"}}` which will set json object in `body` with proper headers.
+   - if you are working with json data instead of using `{body:JSON.stringify({name:"value"})}` just use `{data:{name:"value"}}` which will set json object in `body` with appropriate headers.
      <br/><br/>
 
 7. ### `interceptors`
