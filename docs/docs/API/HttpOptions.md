@@ -148,7 +148,7 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
     ```ts
     <ResponseType extends any = any>(
       data: ResponseType,
-      options?: HValidationOptions,
+      options?: HPValidationOptions,
       schema?: Record<string, any>
     ) => Promise<ResponseType>;
     ```

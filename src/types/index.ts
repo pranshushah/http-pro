@@ -4,11 +4,11 @@ export type HPAnyObject = Record<string, any>;
 
 export type HPValidator<ResponseType extends any = any> = (
   data: ResponseType,
-  options?: HValidationOptions,
+  options?: HPValidationOptions,
   schema?: any
 ) => Promise<ResponseType>;
 
-export type HValidationOptions = {
+export type HPValidationOptions = {
   /**
    * @default 'async'
    */
@@ -20,19 +20,19 @@ export type HValidationOptions = {
   raw?: boolean;
 };
 
-export type _BaseSearchParamsInit =
+export type HPBaseSearchParams =
   | string
   | [string, string][]
   | Record<string, string>
   | URLSearchParams
   | undefined;
 
-export type SearchParamsInit =
-  | _BaseSearchParamsInit
+export type HPSearchParams =
+  | HPBaseSearchParams
   | [string | boolean | number, string | number | boolean][]
   | Record<string, string | boolean | number>;
 
-export type Interceptors = {
+export type HPInterceptors = {
   beforeRequest?: (request: Request) => Request | Promise<Request>;
   beforeError?: (response: Response, request: Request) => void | Promise<void>;
   afterResponse?: (
@@ -44,14 +44,14 @@ export type Interceptors = {
 export interface HttpOptions<ResponseType extends any = any>
   extends RequestInit {
   baseUrl?: string | URL;
-  searchParams?: SearchParamsInit;
+  searchParams?: HPSearchParams;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
   validationSchema?: HPAnyObject;
   validationFunction?: HPValidator<ResponseType>;
   json?: unknown;
-  interceptors?: Interceptors;
-  validationOptions?: HValidationOptions;
+  interceptors?: HPInterceptors;
+  validationOptions?: HPValidationOptions;
   responseType?: keyof typeof responseTypes;
   fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
