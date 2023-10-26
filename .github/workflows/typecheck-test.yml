@@ -1,4 +1,4 @@
-name: lint
+name: typecheck-and-test
 on:
   push:
     branches:
@@ -19,3 +19,6 @@ jobs:
 
       - name: Run lint
         run: yarn lint
+
+      - name: Run tests
+        run: yarn test
