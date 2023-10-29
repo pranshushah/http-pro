@@ -1,11 +1,21 @@
-import { HpResponse, InternalHttpOptions } from '../types';
+import { AnyObjectSchema } from 'yup';
+import { HPAnyObject, HpResponse, InternalHttpOptions } from '../types';
+import { ZodSchema } from 'zod';
 
-export async function addDataInResponse<ResponseType extends any = any>(
+export async function addDataInResponse<
+  ResponseType extends any = any,
+  ValidationSchema extends
+    | AnyObjectSchema
+    | ZodSchema
+    | HPAnyObject
+    | undefined = undefined
+>(
   response: Response,
-  options: InternalHttpOptions<ResponseType>
+  options: InternalHttpOptions<ResponseType, ValidationSchema>
 ) {
   //@ts-ignore
-  let finalResponse: HpResponse<ResponseType> = response.clone();
+  let finalResponse: HpResponse<ResponseType, ValidationSchema> =
+    response.clone();
   let data: ResponseType;
   try {
     if (options.responseType) {
