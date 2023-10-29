@@ -39,8 +39,8 @@ export function mergeValidationOptions(
 }
 
 export function mergeOptions<ResponseData extends any = any>(
-  extendedOptions: HttpOptions = {},
-  baseOptions: HttpOptions = {}
+  extendedOptions: HttpOptions<any, any> = {},
+  baseOptions: HttpOptions<any, any> = {}
 ) {
   const headers = mergeHeaders(extendedOptions.headers, baseOptions.headers);
   const interceptors = mergeInterceptors(

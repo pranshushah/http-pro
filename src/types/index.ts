@@ -1,4 +1,6 @@
 import { responseTypes } from '../utils/constant';
+import { AnyObjectSchema, InferType } from 'yup';
+import { TypeOf, ZodSchema } from 'zod';
 
 export type HPAnyObject = Record<string, any>;
 
@@ -41,13 +43,19 @@ export type HPInterceptors = {
   ) => Response | Promise<Response>;
 };
 
-export interface HttpOptions<ResponseType extends any = any>
-  extends RequestInit {
+export interface HttpOptions<
+  ResponseType extends any = any,
+  ValidationSchema extends
+    | AnyObjectSchema
+    | ZodSchema
+    | HPAnyObject
+    | undefined = undefined
+> extends RequestInit {
   baseUrl?: string | URL;
   searchParams?: HPSearchParams;
   timeout?: number;
   validateStatus?: (status: number) => boolean;
-  validationSchema?: HPAnyObject;
+  validationSchema?: ValidationSchema;
   validationFunction?: HPValidator<ResponseType>;
   data?: unknown;
   interceptors?: HPInterceptors;
@@ -55,16 +63,40 @@ export interface HttpOptions<ResponseType extends any = any>
   responseType?: keyof typeof responseTypes;
   fetch?: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
-export interface InternalHttpOptions<ResponseType extends any = any>
-  extends HttpOptions<ResponseType> {
+export interface InternalHttpOptions<
+  ResponseType extends any = any,
+  ValidationSchema extends
+    | AnyObjectSchema
+    | ZodSchema
+    | HPAnyObject
+    | undefined = undefined
+> extends HttpOptions<ResponseType, ValidationSchema> {
   headers: Headers;
   fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>;
 }
 
-export interface HpResponse<ResponseData extends any> extends Response {
-  data: ResponseData;
+export interface HpResponse<
+  ResponseData,
+  ValidationSchema extends AnyObjectSchema | ZodSchema | HPAnyObject | undefined
+> extends Response {
+  data: IsUnknown<ResponseData> extends true
+    ? ResolveValidationSchema<ResponseData, ValidationSchema>
+    : IsAny<ResponseData> extends true
+    ? ResolveValidationSchema<ResponseData, ValidationSchema>
+    : ResponseData;
 }
 
 export type Input = string | Request | URL;
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'HEAD' | 'DELETE';
+
+export type IsAny<T> = 0 extends 1 & T ? true : false;
+
+export type IsUnknown<T> = unknown extends T ? true : false;
+
+type ResolveValidationSchema<ResponseData, ValidationSchema> =
+  ValidationSchema extends AnyObjectSchema
+    ? InferType<ValidationSchema>
+    : ValidationSchema extends ZodSchema
+    ? TypeOf<ValidationSchema>
+    : ResponseData;
