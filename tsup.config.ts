@@ -10,5 +10,6 @@ export default defineConfig({
   target: 'es2020',
   outDir: 'dist',
   platform: 'neutral',
+  treeshake: 'recommended',
   external: ['zod', 'yup'],
 });
