@@ -11,4 +11,5 @@ export default defineConfig({
   outDir: 'dist',
   platform: 'neutral',
   treeshake: 'recommended',
+  external: ['zod', 'yup'],
 });
