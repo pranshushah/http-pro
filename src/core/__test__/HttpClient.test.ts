@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 import { hp } from '../../index';
-import { HttpProError } from '../../Error';
+import { HttpProError, TimeoutError } from '../../Error';
 describe('Testing get method with differnet properties', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -466,8 +466,11 @@ describe('should work with interceptors', () => {
       status: 400,
       statusText: 'bad request',
     });
-    function beforeError(res: Response) {
-      expect(res.status).toBe(400);
+    function beforeError(error: HttpProError | TimeoutError) {
+      if (error instanceof HttpProError) {
+        expect(error.response.status).toBe(400);
+      }
+      return error;
     }
     const hpInstance = hp.create({
       interceptors: { beforeError },

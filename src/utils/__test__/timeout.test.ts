@@ -1,4 +1,4 @@
-import { InternalHttpOptions } from '../..';
+import { InternalHttpOptions, TimeoutError } from '../..';
 import { timeout } from '../timeout';
 
 beforeEach(() => {
@@ -31,7 +31,7 @@ it('should resolve the promise', async () => {
 it('should reject the promise', () => {
   fetchMock.mockResponseOnce(
     () =>
-      new Promise(resolve => setTimeout(() => resolve({ body: 'ok' }), 1000))
+      new Promise((resolve) => setTimeout(() => resolve({ body: 'ok' }), 1000))
   );
 
   const abortController = new globalThis.AbortController();
@@ -49,10 +49,29 @@ it('should reject the promise', () => {
   ).rejects.toMatch('error');
 });
 
-export function async_delay<T>(delay: number, x?: T): Promise<T | undefined> {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(x);
-    }, delay);
-  });
-}
+it("should call beforeError interceptor if it's defined", async () => {
+  fetchMock.mockResponseOnce(
+    () =>
+      new Promise((resolve) => setTimeout(() => resolve({ body: 'ok' }), 500))
+  );
+
+  const abortController = new globalThis.AbortController();
+  const httpOptions: InternalHttpOptions = {
+    fetch: globalThis.fetch,
+    headers: new Headers(),
+    interceptors: {
+      beforeError(error) {
+        expect(error).toBeInstanceOf(TimeoutError);
+        return error;
+      },
+    },
+  };
+  expect(
+    timeout(
+      new Request('https://www.x.com', { signal: abortController.signal }),
+      httpOptions,
+      abortController,
+      100
+    )
+  ).rejects.toMatch('error');
+});

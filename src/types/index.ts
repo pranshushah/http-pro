@@ -1,6 +1,7 @@
 import { responseTypes } from '../utils/constant';
 import { AnyObjectSchema, InferType } from 'yup';
 import { TypeOf, ZodSchema } from 'zod';
+import { HttpProError, TimeoutError } from '../Error';
 
 export type HPAnyObject = Record<string, any>;
 
@@ -36,7 +37,9 @@ export type HPSearchParams =
 
 export type HPInterceptors = {
   beforeRequest?: (request: Request) => Request | Promise<Request>;
-  beforeError?: (response: Response, request: Request) => void | Promise<void>;
+  beforeError?: (
+    error: HttpProError | TimeoutError
+  ) => HttpProError | TimeoutError | Promise<HttpProError | TimeoutError>;
   afterResponse?: (
     response: Response,
     request: Request

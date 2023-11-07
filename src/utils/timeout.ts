@@ -14,14 +14,31 @@ export async function timeout(
   return new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       abortController.abort();
-      reject(new TimeoutError(request, timeout));
+      timeoutErrorHandler(request, timeout, options).then(reject);
     }, timeout);
     options
       .fetch(request)
-      .then(response => {
+      .then((response) => {
         clearTimeout(timeoutId);
         resolve(response);
       })
       .catch(reject);
   });
+}
+
+async function timeoutErrorHandler(
+  request: Request,
+  timeout: number,
+  httpOptions: InternalHttpOptions | undefined
+) {
+  let timeoutError = new TimeoutError(request, timeout);
+  if (typeof httpOptions?.interceptors?.beforeError === 'function') {
+    const tempTimeoutError = await httpOptions.interceptors.beforeError(
+      timeoutError
+    );
+    if (tempTimeoutError instanceof TimeoutError) {
+      timeoutError = tempTimeoutError;
+    }
+  }
+  return timeoutError;
 }
