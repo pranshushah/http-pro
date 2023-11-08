@@ -75,8 +75,8 @@ const res = await hp.get('https://www.x.com?lastname=shah', {
 
    2. #### `interceptors.beforeError`
 
-      - **Type** : `beforeError : (response: Response, request: Request) => void | Promise<void>`
-      - The `beforeError` function is called if the [validateStatus](./HttpOptions#validatestatus) function returns false, or if the [validateStatus](./HttpOptions#validatestatus) function does not exist and the status code is not in the range of 200-299. The beforeError function receives the [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) and [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) objects as arguments.
+      - **Type** : `beforeError : (error:unkown,request:Request) => void | Promise<void>`
+      - The `beforeError` function is called if there a any error while executing a request, the [validateStatus](./HttpOptions#validatestatus) function returns false, or if the [validateStatus](./HttpOptions#validatestatus) function does not exist and the status code is not in the range of 200-299. The beforeError function receives the error and [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object as an argument.
         <br/><br/>
 
    3. #### `interceptors.afterResponse`
