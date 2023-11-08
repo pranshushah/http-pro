@@ -218,8 +218,10 @@ export class HttpPro {
     validationOptions: { mode: 'async', raw: true },
   };
 
-  // useful for calling interceptors outside of try block for _fetch method.
+  // useful for calling interceptors outside of try block of _fetch method.
   private _interceptors: HttpOptions['interceptors'] = {};
+  // useful for using outside of try block of _fetch method.
+  private _request: globalThis.Request = new globalThis.Request('');
 
   constructor(defaultOptions?: HttpOptions) {
     this._defaultOptions = mergeOptions(defaultOptions, this._defaultOptions);
@@ -281,6 +283,7 @@ export class HttpPro {
           request = tempRequest;
         }
       }
+      this._request = request;
       let originalresponse = await executeRequest(
         request,
         options,
@@ -298,7 +301,7 @@ export class HttpPro {
       return finalResponse;
     } catch (e) {
       if (typeof this._interceptors?.beforeError === 'function') {
-        await this._interceptors.beforeError(e);
+        await this._interceptors.beforeError(e, this._request);
       }
       throw e;
     }
