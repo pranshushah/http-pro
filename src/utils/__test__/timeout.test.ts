@@ -1,4 +1,4 @@
-import { InternalHttpOptions, TimeoutError } from '../..';
+import { InternalHttpOptions } from '../..';
 import { timeout } from '../timeout';
 
 beforeEach(() => {
@@ -38,33 +38,6 @@ it('should reject the promise', () => {
   const httpOptions: InternalHttpOptions = {
     fetch: globalThis.fetch,
     headers: new Headers(),
-  };
-  expect(
-    timeout(
-      new Request('https://www.x.com', { signal: abortController.signal }),
-      httpOptions,
-      abortController,
-      100
-    )
-  ).rejects.toMatch('error');
-});
-
-it("should call beforeError interceptor if it's defined", async () => {
-  fetchMock.mockResponseOnce(
-    () =>
-      new Promise((resolve) => setTimeout(() => resolve({ body: 'ok' }), 500))
-  );
-
-  const abortController = new globalThis.AbortController();
-  const httpOptions: InternalHttpOptions = {
-    fetch: globalThis.fetch,
-    headers: new Headers(),
-    interceptors: {
-      beforeError(error) {
-        expect(error).toBeInstanceOf(TimeoutError);
-        return error;
-      },
-    },
   };
   expect(
     timeout(

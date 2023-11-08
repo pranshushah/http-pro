@@ -19,12 +19,7 @@ export async function validateResponse(
       }
       return response;
     } else {
-      const httpProError = await httpProErrorHandler(
-        request,
-        response,
-        httpOptions
-      );
-      throw httpProError;
+      throw new HttpProError(response, request);
     }
   } else {
     if (response.ok) {
@@ -39,29 +34,7 @@ export async function validateResponse(
       }
       return response;
     } else {
-      const httpProError = await httpProErrorHandler(
-        request,
-        response,
-        httpOptions
-      );
-      throw httpProError;
+      throw new HttpProError(response, request);
     }
   }
-}
-
-async function httpProErrorHandler(
-  request: Request,
-  response: Response,
-  httpOptions: HttpOptions | undefined
-) {
-  let httpProError = new HttpProError(response, request);
-  if (typeof httpOptions?.interceptors?.beforeError === 'function') {
-    const tempHttpProError = await httpOptions.interceptors.beforeError(
-      httpProError
-    );
-    if (tempHttpProError instanceof HttpProError) {
-      httpProError = tempHttpProError;
-    }
-  }
-  return httpProError;
 }

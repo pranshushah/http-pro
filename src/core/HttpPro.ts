@@ -218,6 +218,9 @@ export class HttpPro {
     validationOptions: { mode: 'async', raw: true },
   };
 
+  // useful for calling interceptors outside of try block for _fetch method.
+  private _interceptors: HttpOptions['interceptors'] = {};
+
   constructor(defaultOptions?: HttpOptions) {
     this._defaultOptions = mergeOptions(defaultOptions, this._defaultOptions);
   }
@@ -242,52 +245,62 @@ export class HttpPro {
     method: HttpMethod,
     httpOptions?: HttpOptions<ResponseData, ValidationSchema>
   ) {
-    let request: globalThis.Request;
-    const options = mergeOptions<ResponseData>(
-      httpOptions,
-      this._defaultOptions
-    );
-    const abortController = new globalThis.AbortController();
-    options.timeout = validateTimeout(options.timeout);
-    if (options.timeout !== undefined) {
-      options.signal = abortController.signal; // if you provide timeout, default signal provided by user will be ignored.
-    }
-    options.method = method;
-    stringifyJson(options);
-    if (input instanceof globalThis.Request) {
-      options.headers = mergeHeaders(input.headers, options.headers);
-      request = new globalThis.Request(input, options);
-    } else if (typeof input === 'string' || input instanceof globalThis.URL) {
-      const joinedUrl = joinUrl(input, options);
-      const urlWithParams = addSearchParams(joinedUrl, options);
-      request = new globalThis.Request(
-        urlWithParams as unknown as RequestInfo,
+    try {
+      let request: globalThis.Request;
+      const options = mergeOptions<ResponseData>(
+        httpOptions,
+        this._defaultOptions
+      );
+      this._interceptors = options.interceptors || {};
+      const abortController = new globalThis.AbortController();
+      options.timeout = validateTimeout(options.timeout);
+      if (options.timeout !== undefined) {
+        options.signal = abortController.signal; // if you provide timeout, default signal provided by user will be ignored.
+      }
+      options.method = method;
+      stringifyJson(options);
+      if (input instanceof globalThis.Request) {
+        options.headers = mergeHeaders(input.headers, options.headers);
+        request = new globalThis.Request(input, options);
+      } else if (typeof input === 'string' || input instanceof globalThis.URL) {
+        const joinedUrl = joinUrl(input, options);
+        const urlWithParams = addSearchParams(joinedUrl, options);
+        request = new globalThis.Request(
+          urlWithParams as unknown as RequestInfo,
+          options
+        );
+      } else {
+        throw new TypeError(
+          'input can be type string or Request or URL object'
+        );
+      }
+      addAcceptHeader(options);
+      if (typeof options?.interceptors?.beforeRequest === 'function') {
+        const tempRequest = await options.interceptors.beforeRequest(request);
+        if (tempRequest instanceof globalThis.Request) {
+          request = tempRequest;
+        }
+      }
+      let originalresponse = await executeRequest(
+        request,
+        options,
+        abortController
+      );
+      originalresponse = await validateResponse(
+        options,
+        originalresponse,
+        request
+      );
+      const finalResponse = await addDataInResponse<ResponseData>(
+        originalresponse,
         options
       );
-    } else {
-      throw new TypeError('input can be type string or Request or URL object');
-    }
-    addAcceptHeader(options);
-    if (typeof options?.interceptors?.beforeRequest === 'function') {
-      const tempRequest = await options.interceptors.beforeRequest(request);
-      if (tempRequest instanceof globalThis.Request) {
-        request = tempRequest;
+      return finalResponse;
+    } catch (e) {
+      if (typeof this._interceptors?.beforeError === 'function') {
+        await this._interceptors.beforeError(e);
       }
+      throw e;
     }
-    let originalresponse = await executeRequest(
-      request,
-      options,
-      abortController
-    );
-    originalresponse = await validateResponse(
-      options,
-      originalresponse,
-      request
-    );
-    const finalResponse = await addDataInResponse<ResponseData>(
-      originalresponse,
-      options
-    );
-    return finalResponse;
   }
 }
