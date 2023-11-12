@@ -18,7 +18,7 @@ export async function timeout(
     }, timeout);
     options
       .fetch(request)
-      .then(response => {
+      .then((response) => {
         clearTimeout(timeoutId);
         resolve(response);
       })

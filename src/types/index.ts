@@ -36,7 +36,7 @@ export type HPSearchParams =
 
 export type HPInterceptors = {
   beforeRequest?: (request: Request) => Request | Promise<Request>;
-  beforeError?: (response: Response, request: Request) => void | Promise<void>;
+  beforeError?: (error: unknown, request: Request) => void | Promise<void>;
   afterResponse?: (
     response: Response,
     request: Request

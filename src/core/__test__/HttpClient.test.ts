@@ -442,7 +442,7 @@ describe('should work with interceptors', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
   });
-  it('should work with create object', async () => {
+  it('should work with new instance.', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }));
     async function afterResponse(res: Response) {
       expect(res instanceof Response).toBe(true);
@@ -461,22 +461,24 @@ describe('should work with interceptors', () => {
     expect(data).toEqual({ name: 'pranshu' });
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
-  it('should run error interceptor', async () => {
+  it('should run error interceptor if status is 400', async () => {
     fetchMock.mockResponseOnce(JSON.stringify({ name: 'pranshu' }), {
       status: 400,
       statusText: 'bad request',
     });
-    function beforeError(res: Response) {
-      expect(res.status).toBe(400);
-    }
+    const beforeError = jest.fn();
     const hpInstance = hp.create({
-      interceptors: { beforeError },
-      validateStatus(status) {
-        return status < 500;
+      interceptors: {
+        beforeError,
       },
     });
-    await hpInstance.get('https://www.x.com');
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    try {
+      await hpInstance.get('https://www.x.com');
+      fail('should throw error');
+    } catch (e) {
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(beforeError).toHaveBeenCalledTimes(1);
+    }
   });
 });
 

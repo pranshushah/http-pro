@@ -31,7 +31,7 @@ it('should resolve the promise', async () => {
 it('should reject the promise', () => {
   fetchMock.mockResponseOnce(
     () =>
-      new Promise(resolve => setTimeout(() => resolve({ body: 'ok' }), 1000))
+      new Promise((resolve) => setTimeout(() => resolve({ body: 'ok' }), 1000))
   );
 
   const abortController = new globalThis.AbortController();
@@ -48,11 +48,3 @@ it('should reject the promise', () => {
     )
   ).rejects.toMatch('error');
 });
-
-export function async_delay<T>(delay: number, x?: T): Promise<T | undefined> {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(x);
-    }, delay);
-  });
-}

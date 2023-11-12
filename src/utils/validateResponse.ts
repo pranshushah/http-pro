@@ -19,9 +19,6 @@ export async function validateResponse(
       }
       return response;
     } else {
-      if (typeof httpOptions?.interceptors?.beforeError === 'function') {
-        await httpOptions.interceptors.beforeError(response, request);
-      }
       throw new HttpProError(response, request);
     }
   } else {
@@ -37,9 +34,6 @@ export async function validateResponse(
       }
       return response;
     } else {
-      if (typeof httpOptions?.interceptors?.beforeError === 'function') {
-        await httpOptions.interceptors.beforeError(response, request);
-      }
       throw new HttpProError(response, request);
     }
   }
