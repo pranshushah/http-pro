@@ -248,7 +248,6 @@ export class HttpPro {
     httpOptions?: HttpOptions<ResponseData, ValidationSchema>
   ) {
     try {
-      let request: globalThis.Request;
       const options = mergeOptions<ResponseData>(
         httpOptions,
         this._defaultOptions
@@ -263,11 +262,11 @@ export class HttpPro {
       stringifyJson(options);
       if (input instanceof globalThis.Request) {
         options.headers = mergeHeaders(input.headers, options.headers);
-        request = new globalThis.Request(input, options);
+        this._request = new globalThis.Request(input, options);
       } else if (typeof input === 'string' || input instanceof globalThis.URL) {
         const joinedUrl = joinUrl(input, options);
         const urlWithParams = addSearchParams(joinedUrl, options);
-        request = new globalThis.Request(
+        this._request = new globalThis.Request(
           urlWithParams as unknown as RequestInfo,
           options
         );
@@ -278,21 +277,22 @@ export class HttpPro {
       }
       addAcceptHeader(options);
       if (typeof options?.interceptors?.beforeRequest === 'function') {
-        const tempRequest = await options.interceptors.beforeRequest(request);
+        const tempRequest = await options.interceptors.beforeRequest(
+          this._request
+        );
         if (tempRequest instanceof globalThis.Request) {
-          request = tempRequest;
+          this._request = tempRequest;
         }
       }
-      this._request = request;
       let originalresponse = await executeRequest(
-        request,
+        this._request,
         options,
         abortController
       );
       originalresponse = await validateResponse(
         options,
         originalresponse,
-        request
+        this._request
       );
       const finalResponse = await addDataInResponse<ResponseData>(
         originalresponse,
